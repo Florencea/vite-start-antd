@@ -11,7 +11,7 @@
   "devDependencies": {
     "@ant-design/cssinjs": "^1.17.0",
     "@generouted/react-router": "^1.15.8",
-    "@types/node": "^20.6.1",
+    "@types/node": "^20.6.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
