@@ -19,7 +19,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "antd": "^5.9.2",
     "autoprefixer": "^10.4.15",
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.10",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
