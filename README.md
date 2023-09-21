@@ -26,7 +26,7 @@ PROXY_SERVER="http://localhost:5173/"
 
 - node: `18.18.0`
 - npm: `9.8.1`
-- macOS: `13.5.2`
+- macOS: `13.6`
 - google chorme: `117.0.5938.88`
 - vscode: `1.82.2` with extensions and config:
   - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
