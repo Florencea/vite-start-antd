@@ -8,7 +8,7 @@
 - This template already done [IntelliSense for TypeScript](https://vitejs.dev/guide/env-and-mode.html#intellisense-for-typescript) and [HTML Env Replacement](https://vitejs.dev/guide/env-and-mode.html#html-env-replacement)
 
 ```sh
-# Title of Website
+# Title of the Website
 VITE_TITLE="Vite Start Dash"
 # Favicon of Website in /public directory
 VITE_FAVICON="vite.svg"
