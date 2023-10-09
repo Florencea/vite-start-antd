@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@ant-design/cssinjs": "^1.17.0",
-    "@generouted/react-router": "^1.15.9",
+    "@generouted/react-router": "^1.16.0",
     "@types/node": "^20.8.3",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
