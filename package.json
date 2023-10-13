@@ -9,9 +9,9 @@
     "format": "prettier '**/*' --write --ignore-unknown --cache"
   },
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.17.0",
+    "@ant-design/cssinjs": "^1.17.2",
     "@generouted/react-router": "^1.16.0",
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.8.5",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
