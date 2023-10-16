@@ -24,11 +24,11 @@ PROXY_SERVER="http://localhost:5173/"
 
 ## Tested Environment
 
-- node: `18.18.0`
-- npm: `9.8.1`
+- node: `18.18.2`
+- npm: `10.2.0`
 - macOS: `14.0`
-- google chorme: `117.0.5938.149`
-- vscode: `1.83.0` with extensions and config:
+- google chorme: `118.0.5993.70`
+- vscode: `1.83.1` with extensions and config:
   - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
   - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
