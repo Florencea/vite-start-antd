@@ -11,8 +11,8 @@
   "devDependencies": {
     "@ant-design/cssinjs": "^1.17.2",
     "@generouted/react-router": "^1.16.1",
-    "@types/node": "^20.8.8",
-    "@types/react": "^18.2.31",
+    "@types/node": "^20.8.9",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
@@ -30,7 +30,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
-    "tailwindcss": "^3.3.4",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   }
