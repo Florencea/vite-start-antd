@@ -1,4 +1,4 @@
-# Vite Start Dash
+# vite start antd
 
 - This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/) and [Generouted(Next.js like route)](https://github.com/oedotme/generouted)
 
@@ -20,33 +20,6 @@ VITE_API_PREFIX="/api"
 PORT=5173
 # Proxy server in development mode
 PROXY_SERVER="http://localhost:5173/"
-```
-
-## Tested Environment
-
-- node: `20.9.0`
-- npm: `10.2.1`
-- macOS: `14.1`
-- google chorme: `118.0.5993.117`
-- vscode: `1.83.1` with extensions and config:
-  - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-  - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-
-```json
-{
-  "[html][xml][vue][css][less][scss][graphql][json5][javascript][javascriptreact][typescript][typescriptreact][markdown][markdown-math][markdown_latex_combined][juliamarkdown][json][jsonc][yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "css.validate": false,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  "editor.formatOnSave": true,
-  "editor.quickSuggestions": {
-    "strings": true
-  }
-}
 ```
 
 ## Docs
