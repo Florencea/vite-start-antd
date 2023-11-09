@@ -3,50 +3,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "build": "wireit",
-    "lint": "wireit",
-    "format": "wireit"
-  },
-  "wireit": {
-    "build": {
-      "command": "vite build",
-      "files": [
-        "src",
-        "public",
-        "index.html",
-        "tsconfig.json",
-        "tsconfig.node.json",
-        "vite.config.ts"
-      ],
-      "clean": "if-file-deleted",
-      "output": [
-        "dist/**"
-      ],
-      "dependencies": [
-        "format",
-        "lint"
-      ]
-    },
-    "lint": {
-      "command": "eslint --ext js,js.cjs,jsx,ts,tsx --color --cache --cache-location .eslintcache . && tsc",
-      "files": [
-        "*/**.{js,js.cjs,jsx,ts,tsx}",
-        ".eslintrc.json",
-        "!public",
-        "!dist"
-      ],
-      "output": []
-    },
-    "format": {
-      "command": "prettier '**/*' --write --ignore-unknown --cache",
-      "files": [
-        "*/**.{js,js.cjs,jsx,ts,tsx,json,md,yml,yaml,html}",
-        "!public",
-        "!dist"
-      ],
-      "output": []
-    }
+    "lint": "eslint --ext ts,tsx . && tsc",
+    "format": "prettier '**/*' --write --ignore-unknown --cache"
   },
   "devDependencies": {
     "@ant-design/cssinjs": "^1.17.2",
@@ -72,7 +32,6 @@
     "react-router-dom": "^6.18.0",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "wireit": "^0.14.1"
+    "vite": "^4.5.0"
   }
 }
