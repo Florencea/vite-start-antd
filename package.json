@@ -1,11 +1,13 @@
 {
-  "private": true,
+  "name": "vite-start-antd",
+  "version": "1.0.0",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext ts,tsx . && tsc",
+    "lint": "eslint --ext js,mjs,cjs,jsx,ts,tsx . && tsc",
     "format": "prettier '**/*' --write --ignore-unknown --cache"
   },
   "devDependencies": {
@@ -26,7 +28,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "postcss": "^8.4.31",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
