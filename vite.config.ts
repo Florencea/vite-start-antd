@@ -29,6 +29,17 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
+    rollupOptions: {
+      /**
+       * disable rollup 4 build warning
+       * https://rollupjs.org/configuration-options/#pure
+       */
+      onLog: (level, log, handler) => {
+        if (log.code !== "INVALID_ANNOTATION") {
+          handler(level, log);
+        }
+      },
+    },
   },
   plugins: [react(), generouted()],
 });
