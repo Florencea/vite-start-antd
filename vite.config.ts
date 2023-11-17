@@ -1,5 +1,5 @@
 import generouted from "@generouted/react-router/plugin";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { CommonServerOptions, defineConfig, loadEnv } from "vite";
@@ -31,13 +31,18 @@ export default defineConfig({
     reportCompressedSize: false,
     rollupOptions: {
       /**
-       * disable rollup 4 build warning
+       * disable rollup 4 build INVALID_ANNOTATION warning
        * https://rollupjs.org/configuration-options/#pure
+       * https://rollupjs.org/configuration-options/#onwarn
        */
-      onLog: (level, log, handler) => {
-        if (log.code !== "INVALID_ANNOTATION") {
-          handler(level, log);
+      onwarn: (warning, defaultHandler) => {
+        if (
+          warning.code === "INVALID_ANNOTATION" &&
+          warning.message.includes("/*#__PURE__*/")
+        ) {
+          return;
         }
+        defaultHandler(warning);
       },
     },
   },
