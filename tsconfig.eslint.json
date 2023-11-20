@@ -18,7 +18,8 @@
     "incremental": true,
     "tsBuildInfoFile": "node_modules/.cache/eslint/.tsbuildinfo",
     "composite": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true
   },
   "include": [
     "src",

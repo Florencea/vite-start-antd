@@ -27,6 +27,13 @@
     "react-refresh/only-export-components": [
       "warn",
       { "allowConstantExport": false }
-    ]
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "@typescript-eslint/no-import-type-side-effects": "error"
   }
 }

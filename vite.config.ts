@@ -2,7 +2,7 @@ import generouted from "@generouted/react-router/plugin";
 import react from "@vitejs/plugin-react-swc";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { CommonServerOptions, defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
 
 const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
   "development",
