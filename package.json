@@ -11,7 +11,7 @@
     "format": "prettier '**/*' --write --ignore-unknown --cache"
   },
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.17.4",
+    "@ant-design/cssinjs": "^1.17.5",
     "@generouted/react-router": "^1.16.1",
     "@types/node": "^20.9.4",
     "@types/react": "^18.2.38",
@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "antd": "^5.11.2",
+    "antd": "^5.11.3",
     "autoprefixer": "^10.4.16",
     "dayjs": "^1.11.10",
     "eslint": "^8.54.0",
@@ -31,7 +31,7 @@
     "prettier": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.19.0",
+    "react-router-dom": "^6.20.0",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.3.2",
     "vite": "^5.0.2"
