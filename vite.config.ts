@@ -1,5 +1,5 @@
 import generouted from "@generouted/react-router/plugin";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
