@@ -1,5 +1,7 @@
 # vite start antd
 
+![CI](https://github.com/Florencea/vite-start-antd/actions/workflows/test.yml/badge.svg)
+
 - This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/) and [Generouted(Next.js like route)](https://github.com/oedotme/generouted)
 
 ## Env Variables
@@ -9,7 +11,7 @@
 
 ```sh
 # Title of the Website
-VITE_TITLE="Vite Start Dash"
+VITE_TITLE="Vite Start antd"
 # Favicon of Website in /public directory
 VITE_FAVICON="vite.svg"
 # Base URL for Deployment
