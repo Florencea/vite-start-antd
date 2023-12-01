@@ -12,7 +12,7 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.17.5",
+    "@ant-design/cssinjs": "^1.18.0",
     "@generouted/react-router": "^1.16.1",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
