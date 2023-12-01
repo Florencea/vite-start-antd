@@ -50,7 +50,6 @@ jobs:
       - name: Run tests
         env:
           VITEST_JUNIT_SUITE_NAME: "{filepath}"
-          VITEST_JUNIT_CLASSNAME: "{classname}"
         run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
