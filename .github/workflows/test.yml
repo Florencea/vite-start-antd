@@ -55,6 +55,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Vitest tests for ${{ matrix.node }} on ${{ matrix.os }}
+          name: Vitest tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}
           path: reports/jest-junit.xml
           reporter: jest-junit
