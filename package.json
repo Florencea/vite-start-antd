@@ -11,7 +11,7 @@
     "format": "prettier '**/*' --write --ignore-unknown --cache"
   },
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.17.5",
+    "@ant-design/cssinjs": "^1.18.0",
     "@generouted/react-router": "^1.16.1",
     "@types/node": "^20.10.1",
     "@types/react": "^18.2.39",
