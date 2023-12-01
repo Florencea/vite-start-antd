@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
-import Index from "./index";
+import Index from "../src/pages/index";
 
 test("renders vite logo", () => {
   render(<Index />);
