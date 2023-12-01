@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -6,6 +7,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
   ],
-  ignorePatterns: ["dist", "public", ".eslintrc.cjs"],
+  ignorePatterns: ["dist", "public"],
   parser: "@typescript-eslint/parser",
 };
