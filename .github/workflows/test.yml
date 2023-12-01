@@ -48,7 +48,10 @@ jobs:
       - name: Try build
         run: npm run build
       - name: Run tests
-        run: npm test -- --reporters=default --reporters=jest-junit
+        env:
+          VITEST_JUNIT_SUITE_NAME: "{filepath}"
+          VITEST_JUNIT_CLASSNAME: "{classname}"
+        run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()

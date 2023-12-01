@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import generouted from "@generouted/react-router/plugin";
 import react from "@vitejs/plugin-react";
 import { join } from "node:path";
@@ -47,4 +49,10 @@ export default defineConfig({
     },
   },
   plugins: [react(), generouted()],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    css: true,
+  },
 });
