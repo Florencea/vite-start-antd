@@ -30,4 +30,3 @@ PROXY_SERVER="http://localhost:5173/"
 - [Ant Design](https://ant.design/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Generouted](https://github.com/oedotme/generouted)
-- [wireit](https://github.com/google/wireit)
