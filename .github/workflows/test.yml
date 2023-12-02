@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -9,13 +10,16 @@ on:
     types:
       - completed
   workflow_dispatch:
+
 permissions:
   contents: read
   actions: read
   checks: write
+
 env:
   CI: true
   NODE_ENV: development
+
 jobs:
   test:
     name: CI for Node.js ${{ matrix.node }} on ${{ matrix.os }}
@@ -33,24 +37,31 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup node ${{ matrix.node }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
           cache: npm
+
       - name: Install dependencies
-        run: npm ci --loglevel error --audit false --fund false
+        run: npm ci
+
       - name: Try format
         run: npm run format
+
       - name: Try lint
         run: npm run lint
+
       - name: Try build
         run: npm run build
+
       - name: Run tests
         env:
           VITEST_JUNIT_SUITE_NAME: "{filepath}"
         run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml
+
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
