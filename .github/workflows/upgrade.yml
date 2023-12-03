@@ -14,6 +14,7 @@ permissions:
 env:
   NODE_ENV: development
   COMMIT_MSG_BODY: ""
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   upgrade:
@@ -29,7 +30,7 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Check outdated packages
         run: |
@@ -41,13 +42,14 @@ jobs:
 
       - name: Upgade packages if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
-
         run: npm update
+
       - name: Commit lockfile if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
         run: |
           git config user.name ${{ github.actor }}
-          git config user.email ${{ github.event.sender.id }}+${{ github.event.sender.login }}@users.noreply.github.com
+          git config user.email "$(gh api /users/${{ github.actor }} | jq .email -r)"
+          git add package-lock.json
           git add package.json
           git commit -m "fix(deps): update all non-major dependencies" -m "${{ env.COMMIT_MSG_BODY }}" -m "by CI script"
           git push
