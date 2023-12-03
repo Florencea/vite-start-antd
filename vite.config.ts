@@ -51,8 +51,6 @@ export default defineConfig({
   plugins: [react(), generouted()],
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: "./test/setup.ts",
-    css: true,
+    environment: 'happy-dom',
   },
 });

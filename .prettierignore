@@ -1,2 +1,14 @@
+# static
 /public
+
+# production
 /dist
+
+# yarn
+.pnp.*
+.yarn
+
+# lockfile
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

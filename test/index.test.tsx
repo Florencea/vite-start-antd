@@ -1,9 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { get } from "lodash-es";
+import renderer from "react-test-renderer";
 import { expect, test } from "vitest";
 import Index from "../src/pages/index";
 
 test("renders vite logo", () => {
-  render(<Index />);
-  const text = screen.getByAltText("Vite logo");
-  expect(text).toBeInTheDocument();
+  const component = renderer.create(<Index />).toJSON();
+  expect(
+    get(component, ["children", 0, "children", 0, "props", "alt"]),
+  ).toEqual("Vite logo");
 });
