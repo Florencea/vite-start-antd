@@ -26,18 +26,3 @@ dist-ssr
 # testing
 /coverage
 /reports
-
-# lockfile
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-bun.lockb
-
-# yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
