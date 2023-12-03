@@ -1,9 +1,9 @@
 name: Upgrade
 
 on:
-  # GitHub Actions use UTC time, so 20:00 means 4:00 UTC +8 Timezone
+  # GitHub Actions use UTC time, so 21:00 means 5:00 UTC +8 Timezone
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
 
 permissions:
@@ -27,10 +27,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Check outdated packages
         run: |
@@ -50,6 +49,5 @@ jobs:
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.event.sender.id }}+${{ github.event.sender.login }}@users.noreply.github.com
           git add package.json
-          git add package-lock.json
           git commit -m "fix(deps): update all non-major dependencies" -m "${{ env.COMMIT_MSG_BODY }}" -m "by CI script"
           git push
