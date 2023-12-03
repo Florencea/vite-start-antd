@@ -22,7 +22,7 @@ env:
 
 jobs:
   test:
-    name: CI for Node.js ${{ matrix.node }} on ${{ matrix.os }}
+    name: CI for Node.js ${{ matrix.node }} on ${{ matrix.os }} with ${{ matrix.packageManager }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -34,38 +34,101 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
+        packageManager:
+          - npm
+          - yarn
+          - yarn-berry
+          - pnpm
+          - bun
+        exclude:
+          - os: windows-latest
+            packageManager: bun
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+        if: ${{ matrix.packageManager == 'pnpm' }}
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        if: ${{ matrix.packageManager == 'bun' }}
 
       - name: Setup node ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup yarn-berry
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: |
+          corepack enable
+          yarn set version stable
+
+      - name: Install dependencies with npm
+        if: ${{ matrix.packageManager == 'npm' }}
+        run: npm install
+
+      - name: Install dependencies with yarn
+        if: ${{ matrix.packageManager == 'yarn'}}
+        run: yarn install
+
+      - name: Install dependencies with yarn-berry
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: yarn install --no-immutable
+
+      - name: Install dependencies with pnpm
+        if: ${{ matrix.packageManager == 'pnpm' }}
+        run: pnpm install
+
+      - name: Install dependencies with bun
+        if: ${{ matrix.packageManager == 'bun' }}
+        run: bun install
 
       - name: Try format
-        run: npm run format
+        if: ${{ matrix.packageManager != 'yarn-berry' }}
+        run: ${{ matrix.packageManager }} run format
+
+      - name: Try format
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: yarn run format
 
       - name: Try lint
-        run: npm run lint
+        if: ${{ matrix.packageManager != 'yarn-berry' }}
+        run: ${{ matrix.packageManager }} run lint
+
+      - name: Try lint
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: yarn run lint
 
       - name: Try build
-        run: npm run build
+        if: ${{ matrix.packageManager != 'yarn-berry' }}
+        run: ${{ matrix.packageManager }} run build
+
+      - name: Try build
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: yarn run build
 
       - name: Run tests
-        env:
-          VITEST_JUNIT_SUITE_NAME: "{filepath}"
+        if: ${{ matrix.packageManager == 'npm' }}
         run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml
+
+      - name: Run tests
+        if: ${{ matrix.packageManager == 'yarn' || matrix.packageManager == 'pnpm' || matrix.packageManager == 'bun' }}
+        run: ${{ matrix.packageManager }} run test --reporter=junit --outputFile=./reports/jest-junit.xml
+
+      - name: Run tests
+        if: ${{ matrix.packageManager == 'yarn-berry' }}
+        run: yarn run test --reporter=junit --outputFile=./reports/jest-junit.xml
 
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Vitest tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}
-          path: reports/jest-junit.xml
+          name: Tests for Node.js ${{ matrix.node }} on ${{ matrix.os }} with ${{ matrix.packageManager }}
+          path: reports/jest-*.xml
           reporter: jest-junit
