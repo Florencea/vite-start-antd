@@ -51,6 +51,6 @@ export default defineConfig({
   plugins: [react(), generouted()],
   test: {
     globals: true,
-    environment: 'happy-dom',
+    environment: "happy-dom",
   },
 });
