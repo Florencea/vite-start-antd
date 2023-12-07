@@ -12,9 +12,9 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@ant-design/cssinjs": "^1.18.0",
+    "@ant-design/cssinjs": "^1.18.1",
     "@generouted/react-router": "^1.16.1",
-    "@types/node": "^20.10.3",
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "@types/react-test-renderer": "^18.0.7",
@@ -37,6 +37,6 @@
     "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.6",
-    "vitest": "^1.0.1"
+    "vitest": "^1.0.2"
   }
 }
