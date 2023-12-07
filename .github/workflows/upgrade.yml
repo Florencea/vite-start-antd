@@ -42,7 +42,7 @@ jobs:
 
       - name: Upgade packages if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
-        run: npm update
+        run: npx -y npm-check-updates -p npm -t semver --install always -u
 
       - name: Commit lockfile if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
