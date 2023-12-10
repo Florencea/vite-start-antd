@@ -29,7 +29,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "happy-dom": "^12.10.3",
     "postcss": "^8.4.32",
-    "prettier": "^3.1.0",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
