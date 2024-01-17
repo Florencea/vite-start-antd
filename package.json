@@ -14,7 +14,7 @@
   "devDependencies": {
     "@ant-design/cssinjs": "^1.18.2",
     "@generouted/react-router": "^1.18.2",
-    "@types/node": "^20.11.4",
+    "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@types/react-test-renderer": "^18.0.7",
@@ -22,14 +22,14 @@
     "@typescript-eslint/parser": "^6.19.0",
     "@vitejs/plugin-react": "^4.2.1",
     "antd": "^5.13.1",
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.17",
     "dayjs": "^1.11.10",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "happy-dom": "^13.1.4",
     "postcss": "^8.4.33",
-    "prettier": "^3.2.2",
+    "prettier": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.2",
@@ -37,6 +37,6 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.1"
   }
 }
