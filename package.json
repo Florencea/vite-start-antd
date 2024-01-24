@@ -14,7 +14,7 @@
   "devDependencies": {
     "@ant-design/cssinjs": "^1.18.4",
     "@generouted/react-router": "^1.18.2",
-    "@types/node": "^20.11.5",
+    "@types/node": "^20.11.6",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@types/react-test-renderer": "^18.0.7",
@@ -27,7 +27,7 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "happy-dom": "^13.2.1",
+    "happy-dom": "^13.3.1",
     "postcss": "^8.4.33",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
