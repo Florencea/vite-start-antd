@@ -29,20 +29,17 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Check outdated packages
         run: |
           {
             echo 'COMMIT_MSG_BODY<<EOF'
-            npm outdated --json | jq -cr 'to_entries[] | select( .value.current != .value.wanted ) | "- \(.key) \(.value.current) -> \(.value.wanted)" '
+            npx -y npm-check-updates@latest -p npm -t semver --install never | sed '1,2d; $d' | sed '$ d'
             echo EOF
           } >> "$GITHUB_ENV"
 
       - name: Upgade packages if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
-        run: npx -y npm-check-updates -p npm -t semver --install never -u
+        run: npx -y npm-check-updates@latest -p npm -t semver --install never -u
 
       - name: Sync lockfile if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
