@@ -1,9 +1,9 @@
 name: Upgrade
 
 on:
-  # GitHub Actions use UTC time, so 21:00 means 5:00 UTC +8 Timezone
+  # GitHub Actions use UTC time, so 20:00 means 4:00 UTC +8 Timezone
   schedule:
-    - cron: "0 21 * * *"
+    - cron: "0 20 * * *"
   workflow_dispatch:
 
 permissions:
@@ -42,7 +42,14 @@ jobs:
 
       - name: Upgade packages if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
-        run: npx -y npm-check-updates -p npm -t semver --install always -u
+        run: npx -y npm-check-updates -p npm -t semver --install never -u
+
+      - name: Sync lockfile if needed
+        if: ${{ env.COMMIT_MSG_BODY != '' }}
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm i
 
       - name: Commit lockfile if needed
         if: ${{ env.COMMIT_MSG_BODY != '' }}
