@@ -11,23 +11,13 @@ permissions:
   actions: read
   checks: write
 
-env:
-  NODE_ENV: development
-  COMMIT_MSG_BODY: ""
-  GH_TOKEN: ${{ github.token }}
-
 jobs:
   upgrade:
-    name: Upgrade minor/patch version packages
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-
-      - name: Upgrade minor/patch version packages
-        uses: florencea/node-depsup-action@v1
+          cache: npm
+      - uses: florencea/node-depsup-action@v1
