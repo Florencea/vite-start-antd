@@ -31,9 +31,9 @@ jobs:
           - lts/iron
           - current
         os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+          - ubuntu-22.04
+          - macos-14
+          - windows-2022
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
