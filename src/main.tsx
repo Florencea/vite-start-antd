@@ -21,9 +21,6 @@ createRoot(container).render(
         token: {
           colorPrimary: PRIMARY_COLOR,
           colorInfo: PRIMARY_COLOR,
-          colorLink: PRIMARY_COLOR,
-          colorLinkHover: PRIMARY_COLOR,
-          colorLinkActive: PRIMARY_COLOR,
         },
       }}
     >
