@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/Florencea/vite-start-antd/actions/workflows/test.yml/badge.svg)
 
-- This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/) and [Generouted(Next.js like route)](https://github.com/oedotme/generouted)
+- This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/), [TanStack Router](https://tanstack.com/router/latest) and [Progressive Web Apps](https://vite-pwa-org.netlify.app/)
 
 ## Env Variables
 
@@ -13,7 +13,7 @@
 # Title of the Website
 VITE_TITLE="Vite Start antd"
 # Favicon of Website in /public directory
-VITE_FAVICON="vite.svg"
+VITE_FAVICON="vite.png"
 # Base URL for Deployment
 VITE_WEB_BASE="/"
 # Backend api prefix for proxy server in development mode
@@ -29,4 +29,5 @@ PROXY_SERVER="http://localhost:5173/"
 - [Vite](https://vitejs.dev/)
 - [Ant Design](https://ant.design/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Generouted](https://github.com/oedotme/generouted)
+- [TanStack Router](https://tanstack.com/router/latest)
+- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)
