@@ -1,8 +1,8 @@
 import renderer from "react-test-renderer";
 import { expect, test } from "vitest";
-import Index from "../src/pages/index";
+import { Welcome } from "../src/components/Welcome";
 
 test("renders vite logo", () => {
-  const testInstance = renderer.create(<Index />).root;
+  const testInstance = renderer.create(<Welcome />).root;
   expect(testInstance.findByType("img").props.alt).toEqual("Vite logo");
 });

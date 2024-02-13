@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@ant-design/cssinjs": "^1.18.4",
-    "@eslint/js": "^8.56.0",
-    "@generouted/react-router": "^1.18.2",
+    "@tanstack/react-router": "^1.16.0",
+    "@tanstack/router-vite-plugin": "^1.16.1",
     "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
@@ -32,12 +32,12 @@
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
     "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.0.1",
     "vite": "^5.1.1",
+    "vite-plugin-pwa": "^0.18.1",
     "vitest": "^1.2.2"
   }
 }

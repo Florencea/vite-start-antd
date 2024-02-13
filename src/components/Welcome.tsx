@@ -1,13 +1,19 @@
-import { App, DatePicker, Descriptions, Space, Tag, version } from "antd";
+import { App, DatePicker, Descriptions, Flex, Space, Tag, version } from "antd";
 
-export default function Index() {
+export const Welcome = () => {
   const { message } = App.useApp();
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-3 text-center">
+    <Flex
+      className="h-svh"
+      vertical
+      justify="center"
+      align="center"
+      gap="middle"
+    >
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
         <img
-          src="/vite.svg"
-          className="pointer-events-none h-[20vmin]"
+          src={import.meta.env.VITE_FAVICON}
+          className="pointer-events-none h-[256px] w-[256px]"
           alt="Vite logo"
         />
       </a>
@@ -19,6 +25,7 @@ export default function Index() {
           <Space>
             <Tag color="processing">{version}</Tag>
             <DatePicker
+              name="date"
               onChange={(date) => {
                 if (!date) return;
                 void message.info(date.toDate().toLocaleString());
@@ -27,6 +34,6 @@ export default function Index() {
           </Space>
         </Descriptions.Item>
       </Descriptions>
-    </div>
+    </Flex>
   );
-}
+};

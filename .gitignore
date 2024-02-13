@@ -26,3 +26,6 @@ dist-ssr
 # testing
 /coverage
 /reports
+
+# route
+src/routeTree.gen.ts
