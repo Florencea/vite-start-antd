@@ -14,6 +14,7 @@ const {
   VITE_WEB_BASE,
   VITE_TITLE,
   VITE_FAVICON,
+  VITE_THEME_COLOR_PRIMARY,
 } = loadEnv("development", cwd(), "");
 
 const SERVER_OPTIONS: CommonServerOptions = {
@@ -53,7 +54,7 @@ export default defineConfig({
         name: VITE_TITLE,
         short_name: VITE_TITLE,
         description: VITE_TITLE,
-        theme_color: "#fff",
+        theme_color: VITE_THEME_COLOR_PRIMARY,
         icons: [
           {
             src: VITE_FAVICON,

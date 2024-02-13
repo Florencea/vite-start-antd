@@ -14,6 +14,8 @@
 VITE_TITLE="Vite Start antd"
 # Favicon of Website in /public directory
 VITE_FAVICON="vite.png"
+# Primary color for antd and TailwindCSS
+VITE_THEME_COLOR_PRIMARY="#722ed1"
 # Base URL for Deployment
 VITE_WEB_BASE="/"
 # Backend api prefix for proxy server in development mode
