@@ -4,12 +4,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "dotenv vite",
-    "build": "dotenv tsc && dotenv vite build",
-    "preview": "dotenv vite preview",
-    "lint": "dotenv eslint && tsc",
-    "format": "dotenv prettier \"**/*\" --write --ignore-unknown --cache",
-    "test": "dotenv vitest"
+    "dev": "vite",
+    "build": "tsc && dotenv vite build",
+    "preview": "vite preview",
+    "lint": "eslint && tsc",
+    "format": "prettier \"**/*\" --write --ignore-unknown --cache",
+    "test": "vitest"
   },
   "devDependencies": {
     "@ant-design/cssinjs": "^1.18.4",
