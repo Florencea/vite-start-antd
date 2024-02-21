@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/Florencea/vite-start-antd/actions/workflows/test.yml/badge.svg)
 
-- This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/), [TanStack Router](https://tanstack.com/router/latest) and [Progressive Web Apps](https://vite-pwa-org.netlify.app/)
+- This template provides a minimal project with [Vite](https://vitejs.dev/), [Ant Design](https://ant.design/), [Tailwind CSS](https://tailwindcss.com/) and [TanStack Router](https://tanstack.com/router/latest)
 
 ## Env Variables
 
@@ -13,7 +13,7 @@
 # Title of the Website
 VITE_TITLE="Vite Start antd"
 # Favicon of Website in /public directory
-VITE_FAVICON="vite.png"
+VITE_FAVICON="vite.svg"
 # Primary color for antd and TailwindCSS
 VITE_THEME_COLOR_PRIMARY="#722ed1"
 # Base URL for Deployment
