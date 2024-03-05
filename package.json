@@ -14,7 +14,7 @@
   "devDependencies": {
     "@ant-design/cssinjs": "^1.18.4",
     "@tanstack/react-router": "^1.19.1",
-    "@tanstack/router-vite-plugin": "^1.18.1",
+    "@tanstack/router-vite-plugin": "^1.19.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.62",
     "@types/react-dom": "^18.2.19",
