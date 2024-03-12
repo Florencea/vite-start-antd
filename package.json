@@ -28,7 +28,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "globals": "^14.0.0",
-    "happy-dom": "^13.7.3",
+    "happy-dom": "^13.7.8",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
