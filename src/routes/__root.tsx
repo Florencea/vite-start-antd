@@ -1,11 +1,23 @@
 import { createRootRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+
+const NotFound = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const RedirectToIndex = async () => {
+      await navigate({ to: "/", replace: true });
+    };
+    void RedirectToIndex();
+    return () => {
+      void RedirectToIndex();
+    };
+  }, [navigate]);
+
+  return null;
+};
 
 export const Route = createRootRoute({
-  component: () => <Outlet />,
+  component: Outlet,
   notFoundComponent: NotFound,
 });
-
-function NotFound() {
-  useNavigate()({ to: "/", replace: true });
-  return null;
-}

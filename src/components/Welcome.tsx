@@ -1,4 +1,6 @@
+import logo from "@/assets/vite.svg";
 import { App, DatePicker, Descriptions, Flex, Space, Tag, version } from "antd";
+import dayjs from "dayjs";
 
 export const Welcome = () => {
   const { message } = App.useApp();
@@ -12,7 +14,7 @@ export const Welcome = () => {
     >
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
         <img
-          src={import.meta.env.VITE_FAVICON}
+          src={logo}
           className="pointer-events-none h-[256px] w-[256px]"
           alt="Vite logo"
         />
@@ -27,8 +29,9 @@ export const Welcome = () => {
             <DatePicker
               name="date"
               onChange={(date) => {
-                if (!date) return;
-                void message.info(date.toDate().toLocaleString());
+                if (dayjs.isDayjs(date)) {
+                  void message.info(date.toDate().toLocaleString());
+                }
               }}
             />
           </Space>

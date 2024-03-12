@@ -7,7 +7,7 @@ import "tailwindcss/tailwind.css";
 import { theme } from "./theme";
 
 interface Props {
-  container: HTMLDivElement;
+  container: HTMLElement;
   children?: React.ReactNode;
 }
 

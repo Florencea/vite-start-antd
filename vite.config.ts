@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
   "development",
@@ -26,7 +27,7 @@ const SERVER_OPTIONS: CommonServerOptions = {
 
 const PREVIEW_OPTIONS: CommonServerOptions = {
   ...SERVER_OPTIONS,
-  port: parseInt(PORT, 10),
+  port: parseInt(PORT, 10) + 10000,
 };
 
 export default defineConfig({
@@ -37,7 +38,7 @@ export default defineConfig({
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
   },
-  plugins: [react(), TanStackRouterVite()],
+  plugins: [react(), TanStackRouterVite(), tsconfigPaths()],
   test: {
     globals: true,
     environment: "happy-dom",
