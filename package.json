@@ -12,7 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.18.4",
+    "@ant-design/cssinjs": "^1.18.5",
     "@tanstack/react-router": "^1.22.0",
     "@tanstack/router-vite-plugin": "^1.20.5",
     "@types/node": "^20.11.30",
