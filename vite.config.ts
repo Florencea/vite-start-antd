@@ -5,7 +5,6 @@ import react from "@vitejs/plugin-react";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
   "development",
@@ -38,7 +37,7 @@ export default defineConfig({
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
   },
-  plugins: [react(), TanStackRouterVite(), tsconfigPaths()],
+  plugins: [react(), TanStackRouterVite()],
   test: {
     globals: true,
     environment: "happy-dom",

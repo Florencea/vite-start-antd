@@ -1,6 +1,6 @@
-import { Welcome } from "@/components/Welcome";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Title } from "react-head";
+import { Welcome } from "../components/Welcome";
 
 const Page = () => {
   return (
