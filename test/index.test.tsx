@@ -1,5 +1,6 @@
 import renderer from "react-test-renderer";
 import { expect, test } from "vitest";
+
 import { Welcome } from "../src/components/Welcome";
 
 test("renders vite logo", () => {
