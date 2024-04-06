@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "dotenv vite build",
-    "dev": "dotenv vite",
-    "format": "dotenv prettier -- \"**/*\" --write --ignore-unknown",
-    "lint": "dotenv eslint . --report-unused-disable-directives --max-warnings 0 --fix && tsc",
-    "preview": "dotenv vite preview",
-    "test": "dotenv vitest"
+    "build": "vite build",
+    "dev": "vite",
+    "format": "prettier \"**/*\" --write --ignore-unknown",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0 --fix && tsc",
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.19.1",
@@ -30,7 +30,7 @@
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
-    "dotenv-cli": "^7.4.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -40,8 +40,6 @@
     "happy-dom": "^14.6.1",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
-    "prettier-plugin-packagejson": "^2.4.14",
-    "prettier-plugin-tailwindcss": "^0.5.13",
     "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.4",

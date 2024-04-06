@@ -16,7 +16,7 @@
     "target": "ES2020",
     "useDefineForClassFields": true
   },
-  "include": ["src", "test", "postcss.config.js", "tailwind.config.ts"],
+  "include": ["src", "test", "postcss.config.js", "tailwind.config.js"],
   "references": [
     {
       "path": "./tsconfig.node.json"
