@@ -1,0 +1,14 @@
+{
+  "failFast": true,
+  "ignorePaths": ["dist", "node_modules"],
+  "words": [
+    "antd",
+    "basepath",
+    "cssinjs",
+    "iconify",
+    "nocheck",
+    "tailwindcss",
+    "tanstack",
+    "xlink"
+  ]
+}

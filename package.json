@@ -18,6 +18,7 @@
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "cspell": "^8.6.1",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
     "eslint-plugin-jsonc": "^2.15.0",
@@ -40,8 +41,11 @@
   "scripts": {
     "build": "tsc && dotenv vite build",
     "dev": "vite",
+    "lint": "npm run lint:spell && npm run lint:eslint && npm run lint:type",
+    "lint:eslint": "eslint . --report-unused-disable-directives --max-warnings 0 --fix",
+    "lint:spell": "cspell \"**\" --no-progress --no-summary --unique",
+    "lint:type": "tsc",
     "format": "prettier \"**/*\" --write --ignore-unknown",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0 --fix && tsc",
     "preview": "vite preview",
     "test": "vitest"
   },
