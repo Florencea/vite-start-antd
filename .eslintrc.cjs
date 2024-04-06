@@ -10,9 +10,6 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
   ],
-  globals: {
-    process: true,
-  },
   overrides: [
     {
       files: ["**/*.{ts,tsx}"],
@@ -25,17 +22,12 @@ module.exports = {
         project: ["./tsconfig.json", "./tsconfig.node.json"],
       },
     },
-    {
-      files: "*.json",
-      excludedFiles: "package-lock.json",
-      parser: "jsonc-eslint-parser",
-      rules: {
-        "jsonc/sort-keys": "error",
-      },
-      extends: ["plugin:jsonc/recommended-with-json"],
-    },
   ],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
+    ecmaVersion: "latest",
+  },
   plugins: [
     "@typescript-eslint",
     "react",
