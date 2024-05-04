@@ -1,11 +1,9 @@
-import "dayjs/locale/en";
-import "tailwindcss/tailwind.css";
-
 import { StyleProvider } from "@ant-design/cssinjs";
 import { App, ConfigProvider } from "antd";
 import enUS from "antd/es/locale/en_US";
+import "dayjs/locale/en";
 import { HeadProvider } from "react-head";
-
+import "tailwindcss/tailwind.css";
 import { theme } from "./theme";
 
 interface Props {

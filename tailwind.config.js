@@ -1,4 +1,3 @@
-/* eslint-env commonjs, node */
 import "dotenv/config";
 
 /** @type {import('tailwindcss').Config} */

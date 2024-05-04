@@ -1,10 +1,22 @@
-import { App, DatePicker, Descriptions, Flex, Space, Tag, version } from "antd";
+import {
+  App,
+  Button,
+  DatePicker,
+  Descriptions,
+  Flex,
+  Space,
+  Tag,
+  version,
+} from "antd";
 import dayjs from "dayjs";
-
+import { useState } from "react";
 import logo from "../assets/vite.svg";
 
 export const Welcome = () => {
   const { message } = App.useApp();
+
+  const [count, setCount] = useState(0);
+
   return (
     <Flex
       className="h-svh"
@@ -35,6 +47,15 @@ export const Welcome = () => {
                 }
               }}
             />
+            <Button
+              data-testid="btn"
+              type="primary"
+              onClick={() => {
+                setCount(count + 1);
+              }}
+            >
+              Count is {count}
+            </Button>
           </Space>
         </Descriptions.Item>
       </Descriptions>

@@ -8,9 +8,9 @@ const NotFound = () => {
     const RedirectToIndex = async () => {
       await navigate({ to: "/", replace: true });
     };
-    void RedirectToIndex();
+    RedirectToIndex();
     return () => {
-      void RedirectToIndex();
+      RedirectToIndex();
     };
   }, [navigate]);
 

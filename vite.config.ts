@@ -1,10 +1,9 @@
 /// <reference types="vitest" />
 
-import { join } from "node:path";
-import { cwd } from "node:process";
-
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 import react from "@vitejs/plugin-react";
+import { join } from "node:path";
+import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
 
 const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
