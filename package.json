@@ -21,7 +21,7 @@
     "react-head": "^3.4.2"
   },
   "devDependencies": {
-    "@tanstack/router-vite-plugin": "^1.30.0",
+    "@tanstack/router-vite-plugin": "^1.31.18",
     "@types/node": "^20.12.8",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
