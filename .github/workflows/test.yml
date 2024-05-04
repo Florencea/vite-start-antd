@@ -20,6 +20,10 @@ env:
   CI: true
   NODE_ENV: development
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   test:
     name: CI for Node.js ${{ matrix.node }} on ${{ matrix.os }}
