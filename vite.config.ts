@@ -5,7 +5,7 @@ import { cwd } from "node:process";
 
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 import react from "@vitejs/plugin-react";
-import { type CommonServerOptions, defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
 
 const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
   "development",
@@ -40,7 +40,7 @@ export default defineConfig({
   },
   plugins: [react(), TanStackRouterVite()],
   test: {
-    globals: true,
     environment: "happy-dom",
+    setupFiles: ["./test/vitest.setup.ts"],
   },
 });

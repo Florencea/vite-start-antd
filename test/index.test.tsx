@@ -1,9 +1,10 @@
-import renderer from "react-test-renderer";
+import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 
 import { Welcome } from "../src/components/Welcome";
 
 test("renders vite logo", () => {
-  const testInstance = renderer.create(<Welcome />).root;
-  expect(testInstance.findByType("img").props.alt).toEqual("Vite logo");
+  render(<Welcome />);
+  const logo = screen.getByAltText("Vite logo");
+  expect(logo).toBeInTheDocument();
 });
