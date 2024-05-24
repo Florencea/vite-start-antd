@@ -5,18 +5,22 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
+  /**
+   * base
+   */
   eslint.configs.recommended,
+  /**
+   * typescript
+   */
   ...tseslint.configs.recommended,
+  /**
+   * react
+   */
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       globals: globals.browser,
       parser: tseslint.parser,
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
     },
     plugins: {
       "react-hooks": reactHooks,
@@ -30,13 +34,10 @@ export default tseslint.config(
       ],
     },
   },
+  /**
+   * ignore
+   */
   {
-    files: ["tailwind.config.js"],
-    languageOptions: {
-      globals: globals.node,
-    },
-  },
-  {
-    ignores: ["dist", "public", "eslint.config.js"],
+    ignores: ["dist", "public"],
   },
 );
