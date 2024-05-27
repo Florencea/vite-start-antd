@@ -14,7 +14,7 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.20.0",
     "@tanstack/react-router": "^1.34.3",
-    "antd": "^5.17.3",
+    "antd": "^5.17.4",
     "dayjs": "^1.11.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
