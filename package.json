@@ -34,7 +34,7 @@
     "eslint": "^9.4.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc-f994737d14-20240522",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "globals": "^15.3.0",
+    "globals": "^15.4.0",
     "happy-dom": "^14.12.0",
     "postcss": "^8.4.38",
     "prettier": "^3.3.1",
