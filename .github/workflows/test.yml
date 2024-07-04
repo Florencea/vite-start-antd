@@ -60,6 +60,8 @@ jobs:
         run: npm run lint
 
       - name: Try build
+        env:
+          NODE_ENV: production
         run: npm run build
 
       - name: Run tests
