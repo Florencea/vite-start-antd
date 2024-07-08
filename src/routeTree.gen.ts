@@ -45,7 +45,6 @@ export const routeTree = rootRoute.addChildren({ IndexLazyRoute })
 
 /* prettier-ignore-end */
 
-
 /* ROUTE_MANIFEST_START
 {
   "routes": {
