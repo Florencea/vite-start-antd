@@ -4,8 +4,10 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "noEmit": true,
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strict": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   },
   "include": ["vite.config.ts"]
 }
