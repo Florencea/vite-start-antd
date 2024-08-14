@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.21.0",
-    "@tanstack/react-router": "^1.47.1",
+    "@tanstack/react-router": "^1.48.0",
     "antd": "^5.20.1",
     "dayjs": "^1.11.12",
     "react": "^18.3.1",
