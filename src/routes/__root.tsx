@@ -1,7 +1,12 @@
 import { createRootRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-const NotFound = () => {
+export const Route = createRootRoute({
+  component: Outlet,
+  notFoundComponent: NotFound,
+});
+
+function NotFound() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,9 +20,4 @@ const NotFound = () => {
   }, [navigate]);
 
   return null;
-};
-
-export const Route = createRootRoute({
-  component: Outlet,
-  notFoundComponent: NotFound,
-});
+}

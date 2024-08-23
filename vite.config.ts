@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { join } from "node:path";
 import { cwd } from "node:process";
@@ -37,7 +37,7 @@ export default defineConfig({
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
   },
-  plugins: [react(), TanStackRouterVite()],
+  plugins: [react(), TanStackRouterVite({ autoCodeSplitting: true })],
   test: {
     environment: "happy-dom",
     setupFiles: ["./test/vitest.setup.ts"],
