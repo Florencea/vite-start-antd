@@ -37,7 +37,7 @@ export default defineConfig({
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
   },
-  plugins: [react(), TanStackRouterVite({ autoCodeSplitting: true })],
+  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
   test: {
     environment: "happy-dom",
     setupFiles: ["./test/vitest.setup.ts"],
