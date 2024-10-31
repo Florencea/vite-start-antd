@@ -32,4 +32,3 @@ PROXY_SERVER="http://localhost:5173/"
 - [Ant Design](https://ant.design/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TanStack Router](https://tanstack.com/router/latest)
-- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)

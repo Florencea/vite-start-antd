@@ -7,7 +7,7 @@
     "build": "vite build",
     "dev": "vite",
     "format": "prettier \"**/*\" --write --ignore-unknown",
-    "lint": "eslint . && tsc",
+    "lint": "eslint . && tsc -b",
     "preview": "vite preview",
     "test": "vitest"
   },
