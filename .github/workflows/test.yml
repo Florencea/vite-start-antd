@@ -34,6 +34,7 @@ jobs:
         node:
           - lts/hydrogen
           - lts/iron
+          - lts/jod
           - current
         os:
           - ubuntu-24.04
