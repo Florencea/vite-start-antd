@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
@@ -38,6 +38,7 @@ export default defineConfig({
     reportCompressedSize: false,
   },
   plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
+  // @ts-expect-error In the future, Vitest will migrate to Browser Mode, but since its API is not yet stable, type checking for configuration files will be temporarily ignored to ensure smooth CI operation.
   test: {
     environment: "happy-dom",
     setupFiles: ["./test/vitest.setup.ts"],
