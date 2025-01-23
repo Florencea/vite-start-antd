@@ -1,10 +1,14 @@
 import type { ThemeConfig } from "antd";
 
-const PRIMARY_COLOR = import.meta.env.VITE_THEME_COLOR_PRIMARY;
+const primaryColor = getComputedStyle(
+  document.documentElement,
+).getPropertyValue("--color-primary");
 
 export const theme: ThemeConfig = {
+  cssVar: true,
+  hashed: false,
   token: {
-    colorPrimary: PRIMARY_COLOR,
-    colorInfo: PRIMARY_COLOR,
+    colorPrimary: primaryColor,
+    colorInfo: primaryColor,
   },
 };

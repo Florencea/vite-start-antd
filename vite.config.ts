@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 /// <reference types="@vitest/browser/providers/playwright" />
 
+import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { join } from "node:path";
@@ -38,7 +39,11 @@ export default defineConfig({
     chunkSizeWarningLimit: Infinity,
     reportCompressedSize: false,
   },
-  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
+  plugins: [
+    TanStackRouterVite({ autoCodeSplitting: true }),
+    react(),
+    tailwindcss(),
+  ],
   test: {
     setupFiles: ["./test/vitest.setup.ts"],
     browser: {

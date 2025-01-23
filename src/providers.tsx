@@ -1,8 +1,8 @@
 import { StyleProvider } from "@ant-design/cssinjs";
 import { App, ConfigProvider } from "antd";
-import enUS from "antd/es/locale/en_US";
-import "dayjs/locale/en";
-import "tailwindcss/tailwind.css";
+import zhTW from "antd/es/locale/zh_TW";
+import "dayjs/locale/zh-tw";
+import "./global.css";
 import { theme } from "./theme";
 
 interface Props {
@@ -14,12 +14,12 @@ export const Providers = ({ container, children }: Props) => {
   return (
     <ConfigProvider
       getPopupContainer={() => container}
-      locale={enUS}
+      locale={zhTW}
       theme={theme}
     >
-      <StyleProvider hashPriority="high">
-        <App>{children}</App>
-      </StyleProvider>
+      <App>
+        <StyleProvider layer>{children}</StyleProvider>
+      </App>
     </ConfigProvider>
   );
 };

@@ -1,0 +1,11 @@
+@layer tailwindcss, antd;
+
+@layer tailwindcss {
+  @import "tailwindcss/preflight";
+}
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+@theme {
+  --color-primary: #722ed1;
+}
