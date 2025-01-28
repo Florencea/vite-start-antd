@@ -1,4 +1,3 @@
-import { StyleProvider } from "@ant-design/cssinjs";
 import { App, ConfigProvider } from "antd";
 import zhTW from "antd/es/locale/zh_TW";
 import "dayjs/locale/zh-tw";
@@ -12,15 +11,13 @@ interface Props {
 
 export const Providers = ({ container, children }: Props) => {
   return (
-    <StyleProvider layer>
-      <ConfigProvider
-        getPopupContainer={() => container}
-        locale={zhTW}
-        theme={theme}
-        button={{ autoInsertSpace: false }}
-      >
-        <App>{children}</App>
-      </ConfigProvider>
-    </StyleProvider>
+    <ConfigProvider
+      getPopupContainer={() => container}
+      locale={zhTW}
+      theme={theme}
+      button={{ autoInsertSpace: false }}
+    >
+      <App>{children}</App>
+    </ConfigProvider>
   );
 };

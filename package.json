@@ -12,7 +12,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.23.0",
     "@tanstack/react-router": "^1.97.25",
     "antd": "^5.23.3",
     "dayjs": "^1.11.13",
