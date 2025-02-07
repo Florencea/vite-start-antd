@@ -12,7 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.99.8",
+    "@tanstack/react-router": "^1.99.9",
     "antd": "^5.23.4",
     "dayjs": "^1.11.13",
     "react": "^19.0.0",
