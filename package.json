@@ -9,7 +9,7 @@
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "lint": "eslint . && tsc -b",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "playwright install && vitest"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.102.1",

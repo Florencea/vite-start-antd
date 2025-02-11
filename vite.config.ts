@@ -44,6 +44,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    include: ["@ant-design/v5-patch-for-react-19", "vitest-browser-react"],
+  },
   test: {
     setupFiles: ["./test/vitest.setup.ts"],
     browser: {
