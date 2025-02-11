@@ -68,9 +68,6 @@ jobs:
           NODE_ENV: production
         run: npm run build
 
-      - name: Setup Playwright
-        run: npx playwright install
-
       - name: Run tests
         run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml
 
