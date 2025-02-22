@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
-    "@eslint/js": "^9.20.0",
+    "@eslint/js": "^9.21.0",
     "@tailwindcss/vite": "^4.0.8",
     "@tanstack/router-plugin": "^1.109.2",
     "@types/node": "^22.13.4",
