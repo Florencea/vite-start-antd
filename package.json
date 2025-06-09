@@ -27,7 +27,7 @@
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.1",
-    "@vitest/browser": "^3.2.2",
+    "@vitest/browser": "^3.2.3",
     "autoprefixer": "^10.4.21",
     "dotenv": "^16.5.0",
     "eslint": "^9.28.0",
