@@ -24,7 +24,7 @@
     "@tailwindcss/vite": "^4.1.9",
     "@tanstack/router-plugin": "^1.121.2",
     "@types/node": "^22.15.31",
-    "@types/react": "^19.1.7",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
     "@vitest/browser": "^3.2.3",
