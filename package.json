@@ -22,7 +22,7 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@eslint/js": "^9.29.0",
     "@tailwindcss/vite": "^4.1.10",
-    "@tanstack/router-plugin": "^1.121.22",
+    "@tanstack/router-plugin": "^1.121.24",
     "@types/node": "^24.0.3",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
