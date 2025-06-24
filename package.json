@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@tanstack/react-router": "^1.121.34",
-    "antd": "^5.26.1",
+    "antd": "^5.26.2",
     "dayjs": "^1.11.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
