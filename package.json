@@ -45,6 +45,6 @@
     "vitest-browser-react": "^1.0.1"
   },
   "engines": {
-    "node": "22.19.0"
+    "node": "22.20.0"
   }
 }
