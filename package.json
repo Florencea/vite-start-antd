@@ -16,7 +16,7 @@
     "antd": "^5.27.4",
     "dayjs": "^1.11.18",
     "react": "^19.2.0",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
