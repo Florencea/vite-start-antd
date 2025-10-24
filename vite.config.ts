@@ -1,9 +1,9 @@
 /// <reference types="vitest/config" />
-/// <reference types="@vitest/browser/providers/playwright" />
 
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
@@ -55,16 +55,10 @@ export default defineConfig({
   test: {
     setupFiles: ["./test/vitest.setup.ts"],
     browser: {
-      provider: "playwright",
+      provider: playwright(),
       enabled: true,
       headless: true,
-      instances: [
-        {
-          browser: "chromium",
-          launch: {},
-          context: {},
-        },
-      ],
+      instances: [{ browser: "chromium" }],
       screenshotFailures: false,
     },
   },
