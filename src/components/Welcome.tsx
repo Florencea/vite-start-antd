@@ -28,7 +28,7 @@ export const Welcome = () => {
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
         <img
           src={logo}
-          className="pointer-events-none h-[256px] w-[256px]"
+          className="pointer-events-none h-64 w-64"
           alt="Vite logo"
         />
       </a>
