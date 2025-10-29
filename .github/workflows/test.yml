@@ -32,10 +32,10 @@ jobs:
       fail-fast: false
       matrix:
         node:
-          - lts/iron
-          - lts/jod
-          - lts/krypton
-          - current
+          - 20
+          - 22
+          - 24
+          - 25
         os:
           - ubuntu-24.04
           - macos-26
