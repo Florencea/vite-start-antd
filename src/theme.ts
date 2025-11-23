@@ -5,7 +5,6 @@ const PRIMARY_COLOR = getComputedStyle(
 ).getPropertyValue("--color-primary");
 
 export const theme: ThemeConfig = {
-  cssVar: true,
   hashed: false,
   token: {
     colorPrimary: PRIMARY_COLOR,

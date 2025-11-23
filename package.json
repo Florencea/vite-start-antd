@@ -13,13 +13,12 @@
   },
   "dependencies": {
     "@tanstack/react-router": "^1.139.3",
-    "antd": "^5.29.1",
+    "antd": "^6.0.0",
     "dayjs": "^1.11.19",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@eslint/js": "^9.39.1",
     "@tailwindcss/vite": "^4.1.17",
     "@tanstack/router-plugin": "^1.139.3",
