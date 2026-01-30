@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/browser": "^4.0.18",
     "@vitest/browser-playwright": "^4.0.18",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "^10.4.24",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
