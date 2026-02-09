@@ -12,7 +12,7 @@
     "test": "playwright install && vitest"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.159.3",
+    "@tanstack/react-router": "^1.159.5",
     "antd": "^6.2.3",
     "dayjs": "^1.11.19",
     "react": "^19.2.4",
