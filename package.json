@@ -19,7 +19,7 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.3",
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/router-plugin": "^1.166.2",
     "@types/node": "^25.3.5",
