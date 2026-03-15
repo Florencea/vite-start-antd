@@ -42,10 +42,10 @@ jobs:
           - windows-2025
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup node ${{ matrix.node }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
@@ -72,7 +72,7 @@ jobs:
         run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: success() || failure()
         with:
           name: Tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}
