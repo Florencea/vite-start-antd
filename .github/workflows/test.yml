@@ -44,32 +44,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup node ${{ matrix.node }}
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
-          cache: npm
+          cache: pnpm
 
       - name: Set Engine strict false for Node.js ${{ matrix.node }}
-        run: npm config set engine-strict=false --location=project
+        run: pnpm config set --location=project engineStrict false
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Try format
-        run: npm run format
+        run: pnpm run format
 
       - name: Try lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Try build
         env:
           NODE_ENV: production
-        run: npm run build
+        run: pnpm run build
 
       - name: Run tests
-        run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
+        run: pnpm run test --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
 
       - name: Test Report
         uses: dorny/test-reporter@v2
