@@ -77,7 +77,7 @@ jobs:
         run: pnpm run test --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
 
       - name: Test Report
-        uses: dorny/test-reporter@v2
+        uses: dorny/test-reporter@v3
         if: success() || failure()
         with:
           name: Tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}
