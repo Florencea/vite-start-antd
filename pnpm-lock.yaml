@@ -9,92 +9,92 @@ importers:
   .:
     dependencies:
       '@tanstack/react-router':
-        specifier: ^1.168.10
+        specifier: 1.168.10
         version: 1.168.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       antd:
-        specifier: ^6.3.5
+        specifier: 6.3.5
         version: 6.3.5(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       dayjs:
-        specifier: ^1.11.20
+        specifier: 1.11.20
         version: 1.11.20
       react:
-        specifier: ^19.2.4
+        specifier: 19.2.4
         version: 19.2.4
       react-dom:
-        specifier: ^19.2.4
+        specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
     devDependencies:
       '@eslint/js':
-        specifier: ^9.39.4
+        specifier: 9.39.4
         version: 9.39.4
       '@tailwindcss/vite':
-        specifier: ^4.2.2
+        specifier: 4.2.2
         version: 4.2.2(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))
       '@tanstack/router-plugin':
-        specifier: ^1.167.12
+        specifier: 1.167.12
         version: 1.167.12(@tanstack/react-router@1.168.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))
       '@types/node':
-        specifier: ^25.5.2
+        specifier: 25.5.2
         version: 25.5.2
       '@types/react':
-        specifier: ^19.2.14
+        specifier: 19.2.14
         version: 19.2.14
       '@types/react-dom':
-        specifier: ^19.2.3
+        specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.14)
       '@vitejs/plugin-react':
-        specifier: ^6.0.1
+        specifier: 6.0.1
         version: 6.0.1(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))
       '@vitest/browser':
-        specifier: ^4.1.2
+        specifier: 4.1.2
         version: 4.1.2(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))(vitest@4.1.2)
       '@vitest/browser-playwright':
-        specifier: ^4.1.2
+        specifier: 4.1.2
         version: 4.1.2(playwright@1.59.1)(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))(vitest@4.1.2)
       autoprefixer:
-        specifier: ^10.4.27
+        specifier: 10.4.27
         version: 10.4.27(postcss@8.5.8)
       dotenv:
-        specifier: ^17.4.0
+        specifier: 17.4.0
         version: 17.4.0
       eslint:
-        specifier: ^9.39.4
+        specifier: 9.39.4
         version: 9.39.4(jiti@2.6.1)
       eslint-plugin-react-hooks:
-        specifier: ^7.0.1
+        specifier: 7.0.1
         version: 7.0.1(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-react-refresh:
-        specifier: ^0.5.2
+        specifier: 0.5.2
         version: 0.5.2(eslint@9.39.4(jiti@2.6.1))
       globals:
-        specifier: ^17.4.0
+        specifier: 17.4.0
         version: 17.4.0
       playwright:
-        specifier: ^1.59.1
+        specifier: 1.59.1
         version: 1.59.1
       postcss:
-        specifier: ^8.5.8
+        specifier: 8.5.8
         version: 8.5.8
       prettier:
-        specifier: ^3.8.1
+        specifier: 3.8.1
         version: 3.8.1
       tailwindcss:
-        specifier: ^4.2.2
+        specifier: 4.2.2
         version: 4.2.2
       typescript:
-        specifier: ^6.0.2
+        specifier: 6.0.2
         version: 6.0.2
       typescript-eslint:
-        specifier: ^8.58.0
+        specifier: 8.58.0
         version: 8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.2)
       vite:
-        specifier: ^8.0.3
+        specifier: 8.0.3
         version: 8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0)
       vitest:
-        specifier: ^4.1.2
+        specifier: 4.1.2
         version: 4.1.2(@types/node@25.5.2)(@vitest/browser-playwright@4.1.2)(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0))
       vitest-browser-react:
-        specifier: ^2.2.0
+        specifier: 2.2.0
         version: 2.2.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.2)
 
 packages:

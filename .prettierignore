@@ -15,3 +15,6 @@ pnpm-lock.yaml
 
 # router
 src/routeTree.gen.ts
+
+# pnpm
+pnpm-*.yaml
