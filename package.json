@@ -53,5 +53,9 @@
       "name": "pnpm",
       "onFail": "error"
     }
+  },
+  "engines": {
+    "node": "24.14.1",
+    "pnpm": "10.33.0"
   }
 }
