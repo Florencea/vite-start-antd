@@ -15,12 +15,27 @@ This template provides a minimal, modern boilerplate equipped with [Vite](https:
 
 ## Table of Contents
 
+- [Features](#features)
 - [Getting Started](#-getting-started)
-- [Available Scripts](#️-available-scripts)
+- [Available Scripts](#available-scripts)
 - [Environment Variables](#-environment-variables)
-- [Testing & CI](#-testing--ci)
-- [Resources & Docs](#-resources--docs)
-- [License](#️-license)
+- [Testing & CI](#testing--ci)
+- [Resources & Docs](#resources--docs)
+- [License](#license)
+
+---
+
+## Features
+
+- **Vite:** Next-generation frontend tooling for fast development and builds.
+- **React & TypeScript:** Modern, type-safe UI development.
+- **Ant Design:** An enterprise-class UI design language and React UI library.
+- **Tailwind CSS v4:** A utility-first CSS framework powered by the new `@tailwindcss/vite` engine.
+- **TanStack Router:** Fully type-safe routing for modern web applications.
+- **Vitest & Playwright:** Component and End-to-End testing in a real browser environment.
+- **ESLint & Prettier:** Pre-configured for consistent code style and quality.
+- **PNPM:** Fast, disk space-efficient package manager.
+- **CI Ready:** Pre-configured GitHub Actions workflow for automated testing.
 
 ---
 
@@ -28,8 +43,10 @@ This template provides a minimal, modern boilerplate equipped with [Vite](https:
 
 ### Prerequisites
 
-- **Node.js** (v20+ recommended)
-- **PNPM** (Used as the package manager)
+Based on the `engines` field in `package.json`:
+
+- **Node.js**: `24.15.0` or newer
+- **PNPM**: `10.33.0` or newer
 
 ### Installation
 
@@ -55,17 +72,21 @@ pnpm dev
 
 In the project directory, you can run the following commands:
 
-- `pnpm dev`: Starts the Vite development server.
+- **`pnpm dev`**: Starts the development server.
 
-- `pnpm build`: Builds the application for production.
+- **`pnpm build`**: Builds the application for production.
 
-- `pnpm preview`: Bootstraps a local static web server that serves the files from the `dist` folder, allowing you to preview the production build.
+- **`pnpm preview`**: Previews the production build locally.
 
-- `pnpm test`: Installs Playwright dependencies and runs the Vitest test suite in browser mode.
+- **`pnpm lint`**: Lints the codebase with ESLint.
 
-- `pnpm lint`: Runs ESLint to check for code issues and uses `tsc` to perform type checking.
+- **`pnpm typecheck`**: Performs a TypeScript type check on the project.
 
-- `pnpm format`: Formats all supported files across the project using Prettier.
+- **`pnpm format`**: Formats all files with Prettier.
+
+- **`pnpm test`**: Runs the test suite using Vitest in browser mode.
+
+- **`pnpm test:setup`**: Installs the necessary Playwright browser binaries.
 
 ---
 
