@@ -6,10 +6,12 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "format": "prettier \"**/*\" --write --ignore-unknown",
-    "lint": "eslint . && tsc -b",
+    "format": "prettier . --write --ignore-unknown",
+    "lint": "eslint .",
+    "typecheck": "tsc -b",
     "preview": "vite preview",
-    "test": "playwright install && vitest"
+    "test": "vitest",
+    "test:setup": "playwright install"
   },
   "dependencies": {
     "@tanstack/react-router": "1.168.22",
@@ -43,16 +45,6 @@
     "vite": "8.0.8",
     "vitest": "4.1.4",
     "vitest-browser-react": "2.2.0"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "onFail": "error"
-    },
-    "packageManager": {
-      "name": "pnpm",
-      "onFail": "error"
-    }
   },
   "engines": {
     "node": "24.15.0",

@@ -68,10 +68,16 @@ jobs:
       - name: Try lint
         run: pnpm run lint
 
+      - name: Try typecheck
+        run: pnpm run typecheck
+
       - name: Try build
         env:
           NODE_ENV: production
         run: pnpm run build
+
+      - name: Setup test environment
+        run: pnpm run test:setup
 
       - name: Run tests
         run: pnpm run test --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
