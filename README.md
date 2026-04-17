@@ -45,8 +45,8 @@ This template provides a minimal, modern boilerplate equipped with [Vite](https:
 
 Based on the `engines` field in `package.json`:
 
-- **Node.js**: `24.15.0` or newer
-- **PNPM**: `10.33.0` or newer
+- **Node.js**: `24.15.0`
+- **PNPM**: `10.33.0`
 
 ### Installation
 
