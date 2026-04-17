@@ -11,7 +11,7 @@
     "typecheck": "tsc -b",
     "preview": "vite preview",
     "test": "vitest",
-    "test:setup": "playwright install"
+    "test:setup": "playwright install chromium"
   },
   "dependencies": {
     "@tanstack/react-router": "1.168.22",
@@ -21,7 +21,7 @@
     "react-dom": "19.2.5"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.4",
+    "@eslint/js": "10.0.1",
     "@tailwindcss/vite": "4.2.2",
     "@tanstack/router-plugin": "1.167.22",
     "@types/node": "25.6.0",
@@ -32,7 +32,7 @@
     "@vitest/browser-playwright": "4.1.4",
     "autoprefixer": "10.5.0",
     "dotenv": "17.4.2",
-    "eslint": "9.39.4",
+    "eslint": "10.2.0",
     "eslint-plugin-react-hooks": "7.1.0",
     "eslint-plugin-react-refresh": "0.5.2",
     "globals": "17.5.0",
