@@ -28,6 +28,8 @@ jobs:
   test:
     name: CI for Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
     strategy:
       fail-fast: false
       matrix:
@@ -75,6 +77,15 @@ jobs:
         env:
           NODE_ENV: production
         run: pnpm run build
+
+      - name: Get Playwright version
+        run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | awk '{print $2}')" >> $GITHUB_ENV
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v5
+        with:
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Setup test environment
         run: pnpm run test:setup
