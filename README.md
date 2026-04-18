@@ -19,12 +19,12 @@ npm run dev
 
 ## Available Scripts
 
--   **`dev`**: Starts the development server.
--   **`build`**: Builds the application for production.
--   **`test`**: Runs the test suite.
--   **`lint`**: Lints the codebase.
--   **`format`**: Formats all files with Prettier.
--   **`typecheck`**: Performs a TypeScript type check.
+- **`dev`**: Starts the development server.
+- **`build`**: Builds the application for production.
+- **`test`**: Runs the test suite.
+- **`lint`**: Lints the codebase.
+- **`format`**: Formats all files with Prettier.
+- **`typecheck`**: Performs a TypeScript type check.
 
 ## License
 
