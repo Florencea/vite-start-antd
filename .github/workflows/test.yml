@@ -30,6 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+      NPM_CONFIG_ENGINE_STRICT: false
     strategy:
       fail-fast: false
       matrix:
@@ -52,9 +53,6 @@ jobs:
           node-version: ${{ matrix.node }}
           check-latest: true
           cache: npm
-
-      - name: Set Engine strict false for Node.js ${{ matrix.node }}
-        run: npm config set engine-strict false
 
       - name: Install dependencies
         run: npm ci
