@@ -46,40 +46,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: latest
-
       - name: Setup node ${{ matrix.node }}
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
-          cache: pnpm
+          cache: npm
 
       - name: Set Engine strict false for Node.js ${{ matrix.node }}
-        run: pnpm config set --location=project engineStrict false
+        run: npm config set engineStrict false
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm ci
+
+      - name: Create .env file
+        run: cp .env.example .env
 
       - name: Try format
-        run: pnpm run format
+        run: npm run format
 
       - name: Try lint
-        run: pnpm run lint
+        run: npm run lint
 
       - name: Try typecheck
-        run: pnpm run typecheck
+        run: npm run typecheck
 
       - name: Try build
         env:
           NODE_ENV: production
-        run: pnpm run build
+        run: npm run build
 
       - name: Get Playwright version
-        run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | awk '{print $2}')" >> $GITHUB_ENV
+        run: echo "PLAYWRIGHT_VERSION=$(npx playwright --version | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: Cache Playwright Browsers
         uses: actions/cache@v5
@@ -88,10 +86,10 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Setup test environment
-        run: pnpm run test:setup
+        run: npm run test:setup
 
       - name: Run tests
-        run: pnpm run test --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
+        run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
 
       - name: Test Report
         uses: dorny/test-reporter@v3

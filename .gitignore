@@ -25,3 +25,6 @@ dist-ssr
 # testing
 /coverage
 /reports
+
+# env
+.env

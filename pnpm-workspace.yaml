@@ -1,5 +1,0 @@
-allowBuilds:
-  esbuild: false
-engineStrict: true
-savePrefix: ''
-strictDepBuilds: true

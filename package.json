@@ -44,7 +44,6 @@
     "vitest-browser-react": "2.2.0"
   },
   "engines": {
-    "node": "24.15.0",
-    "pnpm": "10.33.0"
+    "node": "24.15.0"
   }
 }
