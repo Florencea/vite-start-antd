@@ -43,6 +43,7 @@ jobs:
           - ubuntu-24.04-arm
           - macos-26
           - windows-2025
+          - windows-11-arm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -76,7 +77,7 @@ jobs:
 
       - name: Get Playwright version
         id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(npx playwright --version | awk '{print $2}')" >> $GITHUB_ENV
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright Browsers
         uses: actions/cache@v5
