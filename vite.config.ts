@@ -48,9 +48,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  optimizeDeps: {
-    include: ["vitest-browser-react"],
-  },
   test: {
     setupFiles: ["./test/vitest.setup.ts"],
     browser: {
