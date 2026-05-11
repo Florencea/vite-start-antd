@@ -5,18 +5,20 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default defineConfig(globalIgnores(["dist", "public"]), {
-  files: ["**/*.{ts,tsx}"],
-  extends: [
-    js.configs.recommended,
-    tseslint.configs.recommended,
-    reactHooks.configs.flat.recommended,
-    reactRefresh.configs.vite({
-      extraHOCs: ["createRootRoute", "createFileRoute"],
-    }),
-  ],
-  languageOptions: {
-    ecmaVersion: 2022,
-    globals: globals.browser,
+export default defineConfig([
+  globalIgnores(["dist", "public"]),
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite({
+        extraHOCs: ["createRootRoute", "createFileRoute"],
+      }),
+    ],
+    languageOptions: {
+      globals: globals.browser,
+    },
   },
-});
+]);
