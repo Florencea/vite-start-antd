@@ -1,4 +1,6 @@
 {
   "js/ts.tsdk.path": "node_modules/typescript/lib",
-  "js/ts.preferences.preferTypeOnlyAutoImports": true
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }
