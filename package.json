@@ -16,7 +16,7 @@
   "dependencies": {
     "@tanstack/react-router": "1.170.15",
     "antd": "6.4.3",
-    "dayjs": "1.11.20",
+    "dayjs": "1.11.21",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },
