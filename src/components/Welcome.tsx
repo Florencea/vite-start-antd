@@ -1,13 +1,4 @@
-import {
-  App,
-  Button,
-  DatePicker,
-  Descriptions,
-  Flex,
-  Space,
-  Tag,
-  version,
-} from "antd";
+import { App, Button, DatePicker, Flex, Tag, version } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import logo from "../assets/vite.svg";
@@ -35,30 +26,26 @@ export const Welcome = () => {
       <h1 className="text-3xl font-bold text-primary">
         Vite + React + TailwindCSS + antd
       </h1>
-      <Descriptions bordered>
-        <Descriptions.Item label="antd">
-          <Space>
-            <Tag color="processing">{version}</Tag>
-            <DatePicker
-              name="date"
-              onChange={(date) => {
-                if (dayjs.isDayjs(date)) {
-                  void message.info(date.toDate().toLocaleString());
-                }
-              }}
-            />
-            <Button
-              data-testid="btn"
-              type="primary"
-              onClick={() => {
-                setCount(count + 1);
-              }}
-            >
-              Count is {count}
-            </Button>
-          </Space>
-        </Descriptions.Item>
-      </Descriptions>
+      <div className="flex justify-center items-center gap-3">
+        <Tag color="processing">antd {version}</Tag>
+        <DatePicker
+          name="date"
+          onChange={(date) => {
+            if (dayjs.isDayjs(date)) {
+              void message.info(date.toDate().toLocaleString());
+            }
+          }}
+        />
+        <Button
+          data-testid="btn"
+          type="primary"
+          onClick={() => {
+            setCount(count + 1);
+          }}
+        >
+          Count is {count}
+        </Button>
+      </div>
     </Flex>
   );
 };
