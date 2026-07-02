@@ -14,7 +14,7 @@
     "test:setup": "playwright install chromium"
   },
   "dependencies": {
-    "@tanstack/react-router": "1.170.16",
+    "@tanstack/react-router": "1.170.17",
     "antd": "6.5.0",
     "dayjs": "1.11.21",
     "react": "19.2.7",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@tailwindcss/vite": "4.3.2",
-    "@tanstack/router-plugin": "1.168.18",
+    "@tanstack/router-plugin": "1.168.19",
     "@types/node": "26.1.0",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
