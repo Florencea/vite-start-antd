@@ -17,8 +17,8 @@
     "@tanstack/react-router": "1.170.18",
     "antd": "6.5.1",
     "dayjs": "1.11.21",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
