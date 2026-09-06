@@ -1,4 +1,14 @@
 {
-  "js/ts.tsdk.path": "node_modules/typescript/lib",
-  "js/ts.preferences.preferTypeOnlyAutoImports": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit",
+    "source.format.oxc": "explicit"
+  },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "eslint.enable": false,
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "js/ts.tsdk.path": "./node_modules/typescript",
+  "oxc.fixKind": "all",
+  "prettier.enable": false
 }

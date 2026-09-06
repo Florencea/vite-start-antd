@@ -23,8 +23,7 @@ dist-ssr
 *.sw?
 
 # testing
-/coverage
-/reports
+.vitest
 
 # env
 .env

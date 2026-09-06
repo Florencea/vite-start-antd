@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "/public",
+    "/dist",
+    ".pnp.*",
+    ".yarn",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-*.yaml",
+    "src/routeTree.gen.ts"
+  ]
+}

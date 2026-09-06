@@ -8,11 +8,7 @@ import { join } from "node:path";
 import { cwd } from "node:process";
 import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
 
-const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
-  "development",
-  cwd(),
-  "",
-);
+const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv("development", cwd(), "");
 
 const SERVER_OPTIONS: CommonServerOptions = {
   port: parseInt(PORT, 10),

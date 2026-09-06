@@ -91,12 +91,4 @@ jobs:
         run: npm run test:setup
 
       - name: Run tests
-        run: npm test -- --reporter=junit --outputFile=./reports/jest-junit.xml --reporter=hanging-process
-
-      - name: Test Report
-        uses: dorny/test-reporter@v3
-        if: success() || failure()
-        with:
-          name: Tests for Node.js ${{ matrix.node }} on ${{ matrix.os }}
-          path: reports/jest-*.xml
-          reporter: jest-junit
+        run: npm test -- --reporter=junit --reporter=hanging-process
