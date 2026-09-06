@@ -20,7 +20,7 @@ export const Welcome = () => {
           name="date"
           onChange={(date) => {
             if (dayjs.isDayjs(date)) {
-              void message.info(date.toDate().toLocaleString());
+              message.info(date.toDate().toLocaleString());
             }
           }}
         />

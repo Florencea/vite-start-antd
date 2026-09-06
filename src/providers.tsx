@@ -11,12 +11,7 @@ interface Props {
 
 export const Providers = ({ container, children }: Props) => {
   return (
-    <ConfigProvider
-      getPopupContainer={() => container}
-      locale={zhTW}
-      theme={theme}
-      button={{ autoInsertSpace: false }}
-    >
+    <ConfigProvider getPopupContainer={() => container} locale={zhTW} theme={theme}>
       <App>{children}</App>
     </ConfigProvider>
   );

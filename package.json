@@ -31,6 +31,7 @@
     "@vitest/browser-playwright": "5.0.0",
     "oxfmt": "0.66.0",
     "oxlint": "1.81.0",
+    "oxlint-tsgolint": "7.0.2001",
     "playwright": "1.63.0",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",

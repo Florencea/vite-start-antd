@@ -22,24 +22,16 @@ const SERVER_OPTIONS: CommonServerOptions = {
   },
 };
 
-const PREVIEW_OPTIONS: CommonServerOptions = {
-  ...SERVER_OPTIONS,
-  port: parseInt(PORT, 10) + 10000,
-};
-
 export default defineConfig({
   base: VITE_WEB_BASE,
   server: SERVER_OPTIONS,
-  preview: PREVIEW_OPTIONS,
   build: {
-    chunkSizeWarningLimit: Infinity,
-    reportCompressedSize: false,
+    chunkSizeWarningLimit: 1000,
   },
   plugins: [
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
-      tmpDir: "node_modules/.tmp",
     }),
     react(),
     tailwindcss(),

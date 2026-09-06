@@ -22,6 +22,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# tanstack
+.tanstack
+
 # testing
 .vitest
 
