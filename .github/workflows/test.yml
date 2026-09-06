@@ -43,7 +43,7 @@ jobs:
           - ubuntu-24.04-arm
           - macos-26
           - windows-2025
-          - windows-11-arm
+          - windows-11-vs2026-arm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -91,4 +91,4 @@ jobs:
         run: npm run test:setup
 
       - name: Run tests
-        run: npm test -- --reporter=junit --reporter=hanging-process
+        run: npm run test
