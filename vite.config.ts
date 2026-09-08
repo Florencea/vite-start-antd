@@ -4,46 +4,14 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
-import { join } from "node:path";
-import { cwd } from "node:process";
-import { defineConfig, loadEnv, type CommonServerOptions } from "vite";
-
-const { PORT, VITE_API_PREFIX, PROXY_SERVER, VITE_WEB_BASE } = loadEnv(
-  "development",
-  cwd(),
-  "",
-);
-
-const SERVER_OPTIONS: CommonServerOptions = {
-  port: parseInt(PORT, 10),
-  strictPort: true,
-  proxy: {
-    [join(VITE_WEB_BASE, VITE_API_PREFIX)]: {
-      target: PROXY_SERVER,
-      changeOrigin: true,
-      secure: false,
-    },
-  },
-};
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: VITE_WEB_BASE,
-  server: SERVER_OPTIONS,
   build: {
     chunkSizeWarningLimit: 1000,
   },
-  optimizeDeps: {
-    include: [
-      "@tanstack/react-router",
-      "antd",
-      "antd/es/locale/zh_TW",
-      "dayjs",
-      "dayjs/locale/zh-tw",
-    ],
-  },
   plugins: [
     tanstackRouter({
-      target: "react",
       autoCodeSplitting: true,
     }),
     react(),
@@ -56,7 +24,6 @@ export default defineConfig({
       enabled: true,
       headless: true,
       instances: [{ browser: "chromium" }],
-      screenshotFailures: false,
     },
   },
 });

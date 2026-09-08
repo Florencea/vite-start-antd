@@ -25,6 +25,7 @@ A lean React 19 boilerplate and upgrade canary testbed powered by Vite, Ant Desi
 
 ```bash
 npm ci
+cp .env.example .env # Optional local environment variables
 npm run test:setup   # Install Chromium for browser tests (one-time)
 npm run dev
 ```
@@ -34,6 +35,14 @@ Run the unified verification gate:
 ```bash
 npm run check        # typecheck + lint + format + deadcode + test + build
 ```
+
+## Environment Variables
+
+Configured in `.env` (refer to `.env.example`):
+
+- `VITE_TITLE`: HTML document title and meta description.
+- `VITE_FAVICON`: Favicon filename in the `public/` directory.
+- `VITE_WEB_BASE`: Base URL for routing and deployment (defaults to `/`).
 
 ## Available Scripts
 
