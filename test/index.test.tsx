@@ -6,17 +6,20 @@ test("renders vite logo", async () => {
   const { getByAltText } = await render(<Welcome />);
   const logo = getByAltText("Vite logo");
   await expect.element(logo).toBeInTheDocument();
+  await expect.element(logo).toBeVisible();
 });
 
 test("renders button", async () => {
   const screen = await render(<Welcome />);
   const btn = screen.getByTestId("btn");
   await expect.element(btn).toBeInTheDocument();
+  await expect.element(btn).toBeVisible();
 });
 
 test("count increased when Button is clicked", async () => {
   const screen = await render(<Welcome />);
   const btn = screen.getByTestId("btn");
+  await expect.element(btn).toBeVisible();
   await expect.element(btn).toHaveTextContent("Count is 0");
   await btn.click();
   await expect.element(btn).toHaveTextContent("Count is 1");

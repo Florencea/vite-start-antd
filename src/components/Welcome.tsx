@@ -9,12 +9,24 @@ export const Welcome = () => {
   const [count, setCount] = useState(0);
 
   return (
-    <Flex className="h-svh" vertical justify="center" align="center" gap="middle">
+    <Flex
+      className="h-svh"
+      vertical
+      justify="center"
+      align="center"
+      gap="middle"
+    >
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-        <img src={logo} className="pointer-events-none h-64 w-64" alt="Vite logo" />
+        <img
+          src={logo}
+          className="pointer-events-none h-64 w-64"
+          alt="Vite logo"
+        />
       </a>
-      <h1 className="text-3xl font-bold text-primary">Vite + React + TailwindCSS + antd</h1>
-      <div className="flex justify-center items-center gap-3">
+      <h1 className="text-primary text-3xl font-bold">
+        Vite + React + TailwindCSS + antd
+      </h1>
+      <div className="flex items-center justify-center gap-3">
         <Tag color="processing">antd {version}</Tag>
         <DatePicker
           name="date"
