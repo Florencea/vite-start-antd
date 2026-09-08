@@ -14,8 +14,17 @@ Guidelines for AI agents and human contributors working on this repository.
 ## 2. Architectural Conventions
 
 - **Routes**: Place route modules under `src/routes/`. Never manually edit `src/routeTree.gen.ts` (auto-generated).
+  - `/`: Clean, minimal starter welcome page with runtime version telemetry.
+  - `/canary`: Dedicated upgrade regression testbed for high-risk integration points.
+  - `/$`: Catch-all route that automatically redirects to `/`.
 - **Components**: Reusable UI components belong in `src/components/`.
-- **Styling**: Prefer Ant Design components and design tokens (`src/theme.ts`). Use Tailwind utilities for layout, flexbox, grid, and spacing.
+- **Styling & SSOT**:
+  - **Single Source of Truth**: TailwindCSS v4 `@theme` in `src/global.css` is the sole source of truth for design tokens.
+  - **Token Bridging**: `src/theme.ts` dynamically extracts CSS variables via `getComputedStyle(document.documentElement)` into Ant Design tokens (both global `token` and component tokens like `components.Layout.headerBg`). Never provide hardcoded fallback colors.
+  - **No Inline `style`**: Never use `style={{ ... }}` on Ant Design or React components. Prefer Ant Design layout components (`Layout`, `Flex`, `Space`, `Row`, `Col`, `Card`).
+  - **No `!` (important)**: Never use the `!` modifier in Tailwind classes. Tailwind utilities are scoped under `#root` in `src/global.css`, giving them natural specificity over Ant Design.
+- **Language & i18n**:
+  - All UI text, page headings, and code comments must be in concise English, except where specific localized strings (such as `zhTW` calendar buttons or formatters) are strictly required for i18n verification tests.
 - **Imports**: Prefer explicit named imports. Do not add unneeded third-party libraries when native APIs or existing dependencies suffice.
 
 ## 3. Strict Coding Standards
@@ -28,11 +37,13 @@ Guidelines for AI agents and human contributors working on this repository.
 
 ## 4. Testing Standards
 
-- Tests run inside headless Chromium.
+- Tests run inside headless Chromium (`@vitest/browser-playwright`).
+- Use `renderAppAt(initialUrl)` from `test/test-utils.tsx` to mount components into `#root` with full `<Providers>` and TanStack Router context.
 - For UI assertions, verify both DOM existence and actual layout visibility:
   - `await expect.element(el).toBeInTheDocument()`
   - `await expect.element(el).toBeVisible()`
-- Always add or update browser tests when creating or modifying UI components.
+- For design tokens and styling bridges, assert computed styles directly using `window.getComputedStyle()`.
+- Always add or update browser tests when creating or modifying UI components or routes.
 
 ## 5. Verification Gate (Definition of Done)
 

@@ -1,51 +1,45 @@
-import { App, Button, DatePicker, Flex, Tag, version } from "antd";
-import dayjs from "dayjs";
-import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import {
+  Button,
+  Flex,
+  Space,
+  Tag,
+  Typography,
+  version as antdVersion,
+} from "antd";
+import { version as reactVersion } from "react";
 import logo from "../assets/vite.svg";
 
 export const Welcome = () => {
-  const { message } = App.useApp();
-
-  const [count, setCount] = useState(0);
-
   return (
     <Flex
-      className="h-svh"
       vertical
       justify="center"
       align="center"
-      gap="middle"
+      gap="large"
+      className="min-h-[60vh]"
     >
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-        <img
-          src={logo}
-          className="pointer-events-none h-64 w-64"
-          alt="Vite logo"
-        />
+        <img src={logo} className="h-40 w-40" alt="Vite logo" />
       </a>
-      <h1 className="text-primary text-3xl font-bold">
+      <Typography.Title level={2} className="m-0">
         Vite + React + TailwindCSS + antd
-      </h1>
-      <div className="flex items-center justify-center gap-3">
-        <Tag color="processing">antd {version}</Tag>
-        <DatePicker
-          name="date"
-          onChange={(date) => {
-            if (dayjs.isDayjs(date)) {
-              message.info(date.toDate().toLocaleString());
-            }
-          }}
-        />
-        <Button
-          data-testid="btn"
-          type="primary"
-          onClick={() => {
-            setCount(count + 1);
-          }}
-        >
-          Count is {count}
+      </Typography.Title>
+      <Space size="middle" wrap>
+        <Tag color="processing" data-testid="react-version">
+          React {reactVersion}
+        </Tag>
+        <Tag color="purple" data-testid="antd-version">
+          antd {antdVersion}
+        </Tag>
+        <Tag color="cyan">TailwindCSS v4</Tag>
+        <Tag color="geekblue">TanStack Router</Tag>
+      </Space>
+      <Link to="/canary" search={{ page: 1, pageSize: 10 }}>
+        <Button type="primary" size="large" data-testid="canary-btn">
+          Go to Canary Matrix
         </Button>
-      </div>
+      </Link>
     </Flex>
   );
 };

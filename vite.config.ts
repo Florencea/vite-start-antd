@@ -32,6 +32,15 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000,
   },
+  optimizeDeps: {
+    include: [
+      "@tanstack/react-router",
+      "antd",
+      "antd/es/locale/zh_TW",
+      "dayjs",
+      "dayjs/locale/zh-tw",
+    ],
+  },
   plugins: [
     tanstackRouter({
       target: "react",
