@@ -18,7 +18,7 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@tanstack/react-router": "1.170.34",
+    "@tanstack/react-router": "1.170.35",
     "antd": "6.6.3",
     "dayjs": "1.11.23",
     "react": "19.3.0",
