@@ -67,6 +67,12 @@ jobs:
       - name: Try lint
         run: npm run lint
 
+      - name: Try lint tailwind
+        run: npm run lint:tailwind
+
+      - name: Try check deadcode
+        run: npm run check:deadcode
+
       - name: Try typecheck
         run: npm run typecheck
 
