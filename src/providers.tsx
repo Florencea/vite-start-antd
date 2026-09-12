@@ -2,7 +2,7 @@ import { App, ConfigProvider } from "antd";
 import zhTW from "antd/es/locale/zh_TW";
 import "dayjs/locale/zh-tw";
 import "./global.css";
-import { theme } from "./theme";
+import { useAntdTheme } from "./theme";
 
 interface Props {
   children?: React.ReactNode;
@@ -10,11 +10,13 @@ interface Props {
 }
 
 export const Providers = ({ container, children }: Props) => {
+  const dynamicTheme = useAntdTheme();
+
   return (
     <ConfigProvider
       getPopupContainer={() => container}
       locale={zhTW}
-      theme={theme}
+      theme={dynamicTheme}
     >
       <App>{children}</App>
     </ConfigProvider>

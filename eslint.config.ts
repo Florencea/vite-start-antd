@@ -55,7 +55,7 @@ export default defineConfig([
   {
     files: ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}"],
     extends: [
-      reactHooks.configs.flat.recommended,
+      reactHooks.configs.flat["recommended-latest"],
       reactRefresh.configs.vite({
         extraHOCs: ["createFileRoute", "createRootRoute"],
       }),
@@ -65,7 +65,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["*.config.ts"],
+    files: ["scripts/**/*.{ts,tsx}", "*.config.ts"],
     languageOptions: {
       globals: globals.node,
     },

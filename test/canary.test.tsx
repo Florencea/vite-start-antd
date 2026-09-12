@@ -20,6 +20,26 @@ test("SSOT Token Bridge: Tailwind bg-primary matches Antd Button primary backgro
   expect(antdBg).toBe(twBg);
 });
 
+test("SSOT Token Bridge: dynamic theme updates reactively when CSS variable changes", async () => {
+  const screen = await renderAppAt("/canary");
+
+  const antdSample = screen.getByTestId("antd-primary-sample");
+  await expect.element(antdSample).toBeVisible();
+  expect(window.getComputedStyle(antdSample.element()).backgroundColor).toBe(
+    "rgb(114, 46, 209)",
+  );
+
+  // Dynamically update --color-primary on root element
+  document.documentElement.style.setProperty("--color-primary", "#1677ff");
+
+  await expect
+    .poll(() => window.getComputedStyle(antdSample.element()).backgroundColor)
+    .toBe("rgb(22, 119, 255)");
+
+  // Clean up mutation
+  document.documentElement.style.removeProperty("--color-primary");
+});
+
 test("DatePicker & Dayjs i18n: renders zh-TW and triggers message with formatted date", async () => {
   const screen = await renderAppAt("/canary");
 

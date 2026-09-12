@@ -1,8 +1,9 @@
 /// <reference types="vitest/config" />
 
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import react from "@vitejs/plugin-react";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vite";
 
@@ -15,6 +16,9 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react(),
+    babel({
+      presets: [reactCompilerPreset()],
+    }),
     tailwindcss(),
   ],
   test: {

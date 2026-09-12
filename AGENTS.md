@@ -18,11 +18,13 @@ Guidelines for AI agents and human contributors working on this repository.
   - `/canary`: Dedicated upgrade regression testbed for high-risk integration points.
   - `/$`: Catch-all route that automatically redirects to `/`.
 - **Components**: Reusable UI components belong in `src/components/`.
+- **React Compiler**: Automatic fine-grained memoization is enabled via `@vitejs/plugin-react` (`reactCompilerPreset`) and `@rolldown/plugin-babel`. Do not write manual `useMemo`, `useCallback`, or `React.memo` unless handling non-compiler edge cases. Conforms strictly to `eslint-plugin-react-hooks`'s `recommended-latest` rules.
 - **Styling & SSOT**:
   - **Single Source of Truth**: TailwindCSS v4 `@theme` in `src/global.css` is the sole source of truth for design tokens.
-  - **Token Bridging**: `src/theme.ts` dynamically extracts CSS variables via `getComputedStyle(document.documentElement)` into Ant Design tokens (both global `token` and component tokens like `components.Layout.headerBg`). Never provide hardcoded fallback colors.
+  - **Token Bridging**: `src/theme.ts` dynamically extracts CSS variables via `useSyncExternalStore` and `MutationObserver` on `document.documentElement` into Ant Design tokens (`useAntdTheme()`). Never provide hardcoded fallback colors.
   - **No Inline `style`**: Never use `style={{ ... }}` on Ant Design or React components. Prefer Ant Design layout components (`Layout`, `Flex`, `Space`, `Row`, `Col`, `Card`).
   - **No `!` (important)**: Never use the `!` modifier in Tailwind classes. Tailwind utilities are scoped under `#root` in `src/global.css`, giving them natural specificity over Ant Design.
+  - **Canonical Classes**: Use Tailwind CSS v4 canonical class syntax. Run `npm run lint:tailwind` to diagnose non-canonical classes and `npm run lint:tailwind:fix` to automatically format them.
 - **Language & i18n**:
   - All UI text, page headings, and code comments must be in concise English, except where specific localized strings (such as `zhTW` calendar buttons or formatters) are strictly required for i18n verification tests.
 - **Imports**: Prefer explicit named imports. Do not add unneeded third-party libraries when native APIs or existing dependencies suffice.
@@ -57,9 +59,10 @@ This single command runs:
 
 1. `typecheck` (`tsc -b` in strict mode)
 2. `lint` (ESLint strict + stylistic type checks)
-3. `format:check` (Prettier style validation)
-4. `check:deadcode` (Knip unused exports and dependency check)
-5. `test` (Vitest browser tests in Chromium)
-6. `build` (Vite production bundle verification)
+3. `lint:tailwind` (Official Tailwind CSS v4 canonical class check via `@tailwindcss/oxide`)
+4. `format:check` (Prettier style validation)
+5. `check:deadcode` (Knip unused exports and dependency check)
+6. `test` (Vitest browser tests in Chromium)
+7. `build` (Vite production bundle verification)
 
 All checks must pass with 0 errors and 0 warnings.
