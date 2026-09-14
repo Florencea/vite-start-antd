@@ -23,7 +23,6 @@ env:
   CI: "true"
   NO_COLOR: "1"
   PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
-  NPM_CONFIG_ENGINE_STRICT: "false"
 
 defaults:
   run:
@@ -37,10 +36,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Setup Node.js 24
+      - name: Setup Node.js (via package.json engines)
         uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version-file: package.json
           cache: npm
 
       - name: Install dependencies
@@ -68,6 +67,8 @@ jobs:
     name: Unit Tests (Node ${{ matrix.node }} on ${{ matrix.os }})
     needs: lint-and-typecheck
     runs-on: ${{ matrix.os }}
+    env:
+      NPM_CONFIG_ENGINE_STRICT: "false"
     strategy:
       fail-fast: false
       matrix:
@@ -125,6 +126,8 @@ jobs:
     name: E2E & Build (Node ${{ matrix.node }} on ${{ matrix.os }})
     needs: lint-and-typecheck
     runs-on: ${{ matrix.os }}
+    env:
+      NPM_CONFIG_ENGINE_STRICT: "false"
     strategy:
       fail-fast: false
       matrix:
