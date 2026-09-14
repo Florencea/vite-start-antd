@@ -35,21 +35,25 @@ Guidelines for AI agents and human contributors working on this repository.
 - **No `@ts-ignore`**: Banned by ESLint. Use `@ts-expect-error` with a descriptive reason only if strictly unavoidable.
 - **No Floating Promises**: Always `await` or properly handle Promises.
 - **No Dead Code**: Do not export unused types/functions or leave unused packages in `package.json`. Knip checks this in CI.
+- **Boundary Defenses**: Strict compiler checks enabled (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`). Optional properties must not receive `undefined` unless explicitly declared.
+- **React Hooks**: `react-hooks/exhaustive-deps` strictly enforced as errors.
 - **Comments**: Keep all code comments in concise English.
 
 ## 4. Testing Standards
 
-- Tests run inside headless Chromium (`@vitest/browser-playwright`).
-- Use `renderAppAt(initialUrl)` from `test/test-utils.tsx` to mount components into `#root` with full `<Providers>` and TanStack Router context.
-- For UI assertions, verify both DOM existence and actual layout visibility:
-  - `await expect.element(el).toBeInTheDocument()`
-  - `await expect.element(el).toBeVisible()`
-- For design tokens and styling bridges, assert computed styles directly using `window.getComputedStyle()`.
-- Always add or update browser tests when creating or modifying UI components or routes.
+- **Unit / Component Tests**: Run inside headless Chromium via Vitest (`@vitest/browser-playwright`).
+  - Use `renderAppAt(initialUrl)` from `test/test-utils.tsx` to mount components into `#root` with full `<Providers>` and TanStack Router context.
+  - For UI assertions, verify both DOM existence and actual layout visibility:
+    - `await expect.element(el).toBeInTheDocument()`
+    - `await expect.element(el).toBeVisible()`
+  - For design tokens and styling bridges, assert computed styles directly using `window.getComputedStyle()`.
+  - Always add or update browser tests when creating or modifying UI components or routes.
+  - Local debugging: `test.only` is permitted for local interactive debugging, but strictly forbidden in CI (`CI=true`). Console logs are muted for passed tests (`silent: "passed-only"`) to reduce noise while surfacing logs on test failures.
+- **E2E Tests**: Playwright tests live in `test/e2e/` and test production preview builds against real Chromium (`playwright.config.ts` automatically runs build before preview).
 
 ## 5. Verification Gate (Definition of Done)
 
-Before finalizing any task or commit, execute the unified verification gate:
+### Human-Friendly Gate
 
 ```bash
 npm run check
@@ -64,5 +68,17 @@ This single command runs:
 5. `check:deadcode` (Knip unused exports and dependency check)
 6. `test` (Vitest browser tests in Chromium)
 7. `build` (Vite production bundle verification)
+
+### Agent-Specific Dual-Track Ladder (Fail-Fast)
+
+Agents must follow this strict verification ladder:
+
+1. **Inner Loop**: `npm run agent:verify:inner`
+   - `agent:typecheck` (`tsc -b --pretty false`)
+   - `agent:lint` (`agent:lint:eslint` + `agent:lint:tailwind`)
+2. **Unit / Browser Loop**: `npm run agent:test:unit`
+   - Vitest in non-interactive, zero-color mode (`vitest run --reporter=tap-flat --no-color`)
+3. **Comprehensive Gate**: `npm run agent:verify:gate`
+   - Cascades `agent:verify:unit` -> `npm run build` -> `agent:test:e2e` (`playwright test --reporter=line`)
 
 All checks must pass with 0 errors and 0 warnings.

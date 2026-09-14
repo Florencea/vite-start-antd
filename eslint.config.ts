@@ -6,7 +6,14 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores(["dist", "src/routeTree.gen.ts", ".tanstack", ".vitest"]),
+  globalIgnores([
+    "dist",
+    "src/routeTree.gen.ts",
+    ".tanstack",
+    ".vitest",
+    "test-results",
+    "playwright-report",
+  ]),
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
@@ -50,6 +57,8 @@ export default defineConfig([
           minimumDescriptionLength: 5,
         },
       ],
+      // Ban any type
+      "@typescript-eslint/no-explicit-any": "error",
     },
   },
   {
@@ -62,6 +71,9 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: globals.browser,
+    },
+    rules: {
+      "react-hooks/exhaustive-deps": "error",
     },
   },
   {

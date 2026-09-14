@@ -1,0 +1,192 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_run:
+    workflows:
+      - Upgrade
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+env:
+  CI: "true"
+  NO_COLOR: "1"
+  PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+  NPM_CONFIG_ENGINE_STRICT: "false"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lint-and-typecheck:
+    name: Typecheck & Lint
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup environment file
+        run: cp .env.example .env
+
+      - name: Typecheck
+        run: npm run agent:typecheck
+
+      - name: Lint (ESLint)
+        run: npm run agent:lint:eslint
+
+      - name: Lint (Tailwind CSS)
+        run: npm run agent:lint:tailwind
+
+      - name: Check code formatting (Prettier)
+        run: npm run format:check
+
+      - name: Check dead code (Knip)
+        run: npm run check:deadcode
+
+  unit-test:
+    name: Unit Tests (Node ${{ matrix.node }} on ${{ matrix.os }})
+    needs: lint-and-typecheck
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 22
+          - 24
+          - 26
+        os:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-26
+          - windows-2025
+          - windows-11-vs2026-arm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup environment file
+        run: cp .env.example .env
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v6
+        id: playwright-cache
+        with:
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+          key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ steps.playwright-version.outputs.version }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-playwright-
+
+      - name: Setup test environment (install browser)
+        run: npm run test:setup
+
+      - name: Install Playwright system dependencies on Linux
+        if: runner.os == 'Linux'
+        run: npx playwright install-deps chromium
+
+      - name: Run unit & component tests
+        run: npm run agent:test:unit
+
+  e2e-and-build:
+    name: E2E & Build (Node ${{ matrix.node }} on ${{ matrix.os }})
+    needs: lint-and-typecheck
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 22
+          - 24
+          - 26
+        os:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-26
+          - windows-2025
+          - windows-11-vs2026-arm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup environment file
+        run: cp .env.example .env
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v6
+        id: playwright-cache
+        with:
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+          key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ steps.playwright-version.outputs.version }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-playwright-
+
+      - name: Setup test environment (install browser)
+        run: npm run test:setup
+
+      - name: Install Playwright system dependencies on Linux
+        if: runner.os == 'Linux'
+        run: npx playwright install-deps chromium
+
+      - name: Run E2E tests
+        run: npm run agent:test:e2e
+
+      - name: Upload Playwright artifacts on failure
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-artifacts-${{ matrix.os }}-node-${{ matrix.node }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7

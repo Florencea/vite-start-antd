@@ -22,7 +22,10 @@ export default defineConfig({
     tailwindcss(),
   ],
   test: {
+    include: ["test/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
+    exclude: ["test/e2e/**"],
     setupFiles: ["./test/vitest.setup.ts"],
+    silent: "passed-only",
     browser: {
       provider: playwright(),
       enabled: true,

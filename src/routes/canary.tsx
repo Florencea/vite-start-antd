@@ -37,7 +37,7 @@ const MOCK_DATA: MockRecord[] = Array.from({ length: 25 }, (_, index) => ({
   status: index % 3 === 0 ? "Offline" : "Online",
 }));
 
-const COLUMNS: TableProps<MockRecord>["columns"] = [
+const COLUMNS: NonNullable<TableProps<MockRecord>["columns"]> = [
   { title: "ID", dataIndex: "id", key: "id", width: 80 },
   { title: "Name", dataIndex: "name", key: "name" },
   { title: "Role", dataIndex: "role", key: "role" },

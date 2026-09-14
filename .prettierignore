@@ -1,4 +1,7 @@
 dist
 .tanstack
 .vitest
+test-results
+playwright-report
+blob-report
 src/routeTree.gen.ts
