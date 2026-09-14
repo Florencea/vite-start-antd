@@ -13,5 +13,6 @@
   "js/ts.tsdk.path": "./node_modules/typescript",
   "search.exclude": {
     "**/routeTree.gen.ts": true
-  }
+  },
+  "tailwindCSS.files.exclude": ["**/routeTree.gen.ts"]
 }

@@ -42,7 +42,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@rolldown/plugin-babel": "0.2.4",
-    "@tailwindcss/oxide": "4.3.3",
+    "@tailwindcss/language-server": "0.16.0",
     "@tailwindcss/vite": "4.3.3",
     "@tanstack/router-plugin": "1.168.38",
     "@types/node": "26.5.1",
@@ -66,12 +66,16 @@
     "typescript-eslint": "8.70.0",
     "vite": "8.3.0",
     "vitest": "5.0.0",
-    "vitest-browser-react": "2.3.0"
+    "vitest-browser-react": "2.3.0",
+    "vscode-languageserver-protocol": "3.18.3"
   },
   "engines": {
     "node": "24.21.0"
   },
   "knip": {
+    "ignoreDependencies": [
+      "@tailwindcss/language-server"
+    ],
     "playwright": true
   }
 }

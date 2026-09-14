@@ -1,160 +1,607 @@
-import fs from "node:fs";
+import { fork } from "node:child_process";
+import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import process from "node:process";
-import { fileURLToPath } from "node:url";
-import { Scanner } from "@tailwindcss/oxide";
-import { __unstable__loadDesignSystem as loadDesignSystem } from "tailwindcss";
+import { pathToFileURL } from "node:url";
+import type {
+  Diagnostic,
+  InitializeParams,
+  Position,
+  TextEdit,
+} from "vscode-languageserver-protocol/node";
+import {
+  CodeActionKind,
+  CodeActionRequest,
+  ConfigurationRequest,
+  DidCloseTextDocumentNotification,
+  DidOpenTextDocumentNotification,
+  ExitNotification,
+  IPCMessageReader,
+  IPCMessageWriter,
+  InitializeRequest,
+  InitializedNotification,
+  PublishDiagnosticsNotification,
+  RegistrationRequest,
+  ShutdownRequest,
+  UnregistrationRequest,
+  createProtocolConnection,
+} from "vscode-languageserver-protocol/node";
 
-interface Diagnostic {
-  filePath: string;
-  line: number;
-  col: number;
-  position: number;
-  length: number;
-  original: string;
-  canonical: string;
+// --- Supported Extensions & Language Mappings ---
+
+const SUPPORTED_GLOB_EXTENSIONS =
+  "**/*.{tsx,ts,jsx,js,mjs,cjs,html,css,postcss,vue,svelte,astro}";
+
+const EXTENSION_TO_LANGUAGE_ID: Record<string, string> = {
+  ".tsx": "typescriptreact",
+  ".jsx": "javascriptreact",
+  ".ts": "typescript",
+  ".js": "javascript",
+  ".mjs": "javascript",
+  ".cjs": "javascript",
+  ".html": "html",
+  ".css": "css",
+  ".postcss": "css",
+  ".vue": "vue",
+  ".svelte": "svelte",
+  ".astro": "astro",
+};
+
+// --- Baseline Exclusions (from official vscode-tailwindcss & standard build tools) ---
+
+const BASELINE_EXCLUDES: readonly string[] = [
+  "**/.git/**",
+  "**/node_modules/**",
+  "**/.hg/**",
+  "**/.svn/**",
+  "**/dist/**",
+  "**/build/**",
+  "**/.next/**",
+  "**/.turbo/**",
+  "**/.parcel-cache/**",
+  "**/.DS_Store",
+  "**/CVS",
+  "**/Thumbs.db",
+  "**/*.d.ts",
+];
+
+async function fileExists(filePath: string): Promise<boolean> {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-function getLineAndCol(
-  content: string,
-  offset: number,
-): { line: number; col: number } {
-  let line = 1;
-  let col = 1;
-  for (let i = 0; i < offset && i < content.length; i++) {
-    if (content[i] === "\n") {
+function normalizeExcludePattern(rawPattern: string): string {
+  const normalized = rawPattern.replace(/\\/g, "/").trim();
+  if (normalized.endsWith("/**")) {
+    return `${normalized.slice(0, -3)}{,/**}`;
+  }
+  if (normalized.endsWith("/")) {
+    return `${normalized.slice(0, -1)}{,/**}`;
+  }
+  return normalized;
+}
+
+async function loadNormalizedExclusions(
+  projectRoot: string,
+): Promise<string[]> {
+  const patterns = new Set<string>(BASELINE_EXCLUDES);
+
+  // 1. Read .vscode/settings.json (if present) via dynamic JSON import
+  const vscodeSettingsPath = path.join(projectRoot, ".vscode/settings.json");
+  if (await fileExists(vscodeSettingsPath)) {
+    try {
+      const fileUrl = pathToFileURL(vscodeSettingsPath).href;
+      const mod = (await import(fileUrl, { with: { type: "json" } })) as {
+        default?: Record<string, unknown>;
+      };
+      const parsed = mod.default ?? {};
+
+      const tailwindExcludes = parsed["tailwindCSS.files.exclude"];
+      if (Array.isArray(tailwindExcludes)) {
+        for (const item of tailwindExcludes) {
+          if (typeof item === "string") {
+            patterns.add(item);
+          }
+        }
+      }
+
+      const filesExcludes = parsed["files.exclude"];
+      if (filesExcludes && typeof filesExcludes === "object") {
+        for (const [key, val] of Object.entries(filesExcludes)) {
+          if (val === true) {
+            patterns.add(key);
+          }
+        }
+      }
+    } catch {
+      // Gracefully ignore syntax/JSONC errors in settings.json
+    }
+  }
+
+  // 2. Read .gitignore (if present)
+  const gitignorePath = path.join(projectRoot, ".gitignore");
+  if (await fileExists(gitignorePath)) {
+    try {
+      const raw = await fs.readFile(gitignorePath, "utf8");
+      const lines = raw.split(/\r?\n/);
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.length > 0 && !trimmed.startsWith("#")) {
+          patterns.add(trimmed);
+        }
+      }
+    } catch {
+      // Ignore read errors
+    }
+  }
+
+  return Array.from(patterns).map(normalizeExcludePattern);
+}
+
+// --- Dynamic Server Binary Resolution ---
+
+async function resolveServerBinary(projectRoot: string): Promise<string> {
+  // 1. Resolve relative to @tailwindcss/language-server package root
+  try {
+    const req = createRequire(path.join(projectRoot, "package.json"));
+    const pkgJsonPath = req.resolve(
+      "@tailwindcss/language-server/package.json",
+    );
+    const pkgDir = path.dirname(pkgJsonPath);
+    const binCandidate = path.join(pkgDir, "bin/tailwindcss-language-server");
+    if (await fileExists(binCandidate)) {
+      return await fs.realpath(binCandidate);
+    }
+  } catch {
+    // Fallback if direct package resolution is unavailable
+  }
+
+  // 2. Resolve hoisted binary in node_modules/.bin
+  const hoistedBin = path.join(
+    projectRoot,
+    "node_modules/.bin/tailwindcss-language-server",
+  );
+  if (await fileExists(hoistedBin)) {
+    return await fs.realpath(hoistedBin);
+  }
+
+  // 3. Fallback to global command
+  return "tailwindcss-language-server";
+}
+
+// --- LSP Client ---
+
+interface LSPClient {
+  connection: ReturnType<typeof createProtocolConnection>;
+  waitForServerReady: (timeoutMs?: number) => Promise<void>;
+  waitForDiagnostics: (
+    uri: string,
+    timeoutMs?: number,
+  ) => Promise<Diagnostic[]>;
+  close: () => Promise<void>;
+}
+
+async function createLSPClient(projectRoot: string): Promise<LSPClient> {
+  const binaryPath = await resolveServerBinary(projectRoot);
+
+  const child = fork(binaryPath, ["--node-ipc"], {
+    cwd: projectRoot,
+    stdio: ["ignore", "ignore", "inherit", "ipc"],
+  });
+
+  const connection = createProtocolConnection(
+    new IPCMessageReader(child),
+    new IPCMessageWriter(child),
+  );
+
+  const tailwindConfig = {
+    validate: true,
+    lint: {
+      suggestCanonicalClasses: "warning",
+      cssConflict: "warning",
+      invalidApply: "error",
+      recommendedVariantOrder: "warning",
+    },
+    rootFontSize: 16,
+    files: {
+      exclude: BASELINE_EXCLUDES,
+    },
+  };
+
+  connection.onRequest(ConfigurationRequest.type, (params) => {
+    return params.items.map((item) => {
+      if (item.section === "tailwindCSS") return tailwindConfig;
+      if (item.section === "editor") return { tabSize: 2 };
+      if (item.section === "files")
+        return {
+          exclude: {
+            "**/.git": true,
+            "**/node_modules": true,
+            "**/dist": true,
+          },
+        };
+      return {};
+    });
+  });
+
+  connection.onRequest(RegistrationRequest.type, () => {
+    // Acknowledge dynamic capability registrations from server
+  });
+  connection.onRequest(UnregistrationRequest.type, () => {
+    // Acknowledge dynamic capability unregistrations from server
+  });
+
+  let onServerReadyCallback: (() => void) | null = null;
+  connection.onNotification("@/tailwindCSS/serverReady", () => {
+    if (onServerReadyCallback) {
+      onServerReadyCallback();
+      onServerReadyCallback = null;
+    }
+  });
+
+  const diagnosticsWaiters = new Map<string, (diags: Diagnostic[]) => void>();
+
+  connection.onNotification(PublishDiagnosticsNotification.type, (params) => {
+    if (params.uri && diagnosticsWaiters.has(params.uri)) {
+      const resolve = diagnosticsWaiters.get(params.uri);
+      diagnosticsWaiters.delete(params.uri);
+      if (resolve) {
+        resolve(params.diagnostics);
+      }
+    }
+  });
+
+  connection.listen();
+
+  return {
+    connection,
+    waitForServerReady: (timeoutMs = 5000): Promise<void> => {
+      return new Promise((resolve) => {
+        const timer = setTimeout(() => {
+          onServerReadyCallback = null;
+          resolve();
+        }, timeoutMs);
+        onServerReadyCallback = () => {
+          clearTimeout(timer);
+          resolve();
+        };
+      });
+    },
+    waitForDiagnostics: (
+      uri: string,
+      timeoutMs = 800,
+    ): Promise<Diagnostic[]> => {
+      return new Promise((resolve) => {
+        diagnosticsWaiters.set(uri, resolve);
+        setTimeout(() => {
+          if (diagnosticsWaiters.has(uri)) {
+            diagnosticsWaiters.delete(uri);
+            resolve([]);
+          }
+        }, timeoutMs);
+      });
+    },
+    close: async () => {
+      try {
+        await Promise.race([
+          connection.sendRequest(ShutdownRequest.type),
+          new Promise((r) => setTimeout(r, 600)),
+        ]);
+        await connection.sendNotification(ExitNotification.type);
+      } catch {
+        // Ignore exit errors
+      } finally {
+        connection.dispose();
+        child.kill();
+      }
+    },
+  };
+}
+
+// --- Offset Conversion & Text Editing ---
+
+function positionToOffset(content: string, pos: Position): number {
+  let line = 0;
+  let offset = 0;
+  while (line < pos.line && offset < content.length) {
+    if (content[offset] === "\n") {
       line++;
-      col = 1;
-    } else {
-      col++;
     }
+    offset++;
   }
-  return { line, col };
+  return offset + pos.character;
 }
 
-function collectSourceFiles(dir: string): string[] {
-  const results: string[] = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...collectSourceFiles(fullPath));
-    } else if (
-      entry.isFile() &&
-      (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) &&
-      !entry.name.endsWith(".d.ts")
-    ) {
-      results.push(fullPath);
-    }
+function applyTextEdits(content: string, edits: TextEdit[]): string {
+  // Sort in reverse order of starting position to prevent index shift
+  const sortedEdits = edits.map((edit) => {
+    return {
+      start: positionToOffset(content, edit.range.start),
+      end: positionToOffset(content, edit.range.end),
+      newText: edit.newText,
+    };
+  });
+
+  sortedEdits.sort((a, b) => b.start - a.start);
+
+  let updated = content;
+  for (const edit of sortedEdits) {
+    const before = updated.slice(0, edit.start);
+    const after = updated.slice(edit.end);
+    updated = before + edit.newText + after;
   }
-  return results;
+
+  return updated;
 }
+
+// --- Main Runner ---
 
 async function main() {
   const isFix = process.argv.includes("--fix");
+  const nonFlagArgs = process.argv
+    .slice(2)
+    .filter((arg) => !arg.startsWith("--"));
+
   const projectRoot = process.cwd();
-  const cssPath = path.resolve(projectRoot, "src/global.css");
+  const exclusionPatterns = await loadNormalizedExclusions(projectRoot);
 
-  if (!fs.existsSync(cssPath)) {
-    console.error(`Tailwind entry stylesheet not found: ${cssPath}`);
-    process.exit(1);
-  }
+  const shouldExclude = (filePath: string): boolean => {
+    const normalized = filePath.replace(/\\/g, "/");
+    return exclusionPatterns.some((pattern) =>
+      path.matchesGlob(normalized, pattern),
+    );
+  };
 
-  const css = fs.readFileSync(cssPath, "utf8");
+  const targetFiles: string[] = [];
 
-  const ds = await loadDesignSystem(css, {
-    base: path.dirname(cssPath),
-    loadStylesheet: async (id: string, base: string) => {
-      let resolved: string;
-      if (id.startsWith("tailwindcss/")) {
-        const fileUrl = import.meta.resolve(id);
-        resolved = fileURLToPath(fileUrl);
-      } else if (id.startsWith("file://")) {
-        resolved = fileURLToPath(id);
-      } else {
-        resolved = path.resolve(base, id);
+  if (nonFlagArgs.length > 0) {
+    for (const arg of nonFlagArgs) {
+      const resolved = path.resolve(projectRoot, arg);
+      if (!(await fileExists(resolved))) {
+        console.warn(`File or directory not found: ${arg}`);
+        continue;
       }
-      const content = await fs.promises.readFile(resolved, "utf8");
-      return {
-        path: resolved,
-        base: path.dirname(resolved),
-        content,
-      };
-    },
-  });
-
-  const scanner = new Scanner({});
-  const srcDir = path.resolve(projectRoot, "src");
-  const files = collectSourceFiles(srcDir);
-
-  const allDiagnostics: Diagnostic[] = [];
-
-  for (const file of files) {
-    const content = fs.readFileSync(file, "utf8");
-    const extension = path.extname(file).replace(/^\./, "");
-    const candidates = scanner.getCandidatesWithPositions({
-      content,
-      extension,
-    });
-
-    const fileDiagnostics: Diagnostic[] = [];
-
-    for (const item of candidates) {
-      const canonical = ds.canonicalizeCandidates([item.candidate])[0];
-      if (canonical && canonical !== item.candidate) {
-        const { line, col } = getLineAndCol(content, item.position);
-        fileDiagnostics.push({
-          filePath: file,
-          line,
-          col,
-          position: item.position,
-          length: item.candidate.length,
-          original: item.candidate,
-          canonical,
-        });
+      const stat = await fs.stat(resolved);
+      if (stat.isDirectory()) {
+        for await (const entry of fs.glob(SUPPORTED_GLOB_EXTENSIONS, {
+          cwd: resolved,
+          exclude: (e) =>
+            shouldExclude(path.relative(projectRoot, path.join(resolved, e))),
+        })) {
+          targetFiles.push(path.resolve(resolved, entry));
+        }
+      } else if (stat.isFile()) {
+        const rel = path.relative(projectRoot, resolved);
+        if (
+          path.matchesGlob(rel, SUPPORTED_GLOB_EXTENSIONS) &&
+          !shouldExclude(rel)
+        ) {
+          targetFiles.push(resolved);
+        }
       }
     }
+  } else {
+    const srcDir = path.join(projectRoot, "src");
+    const searchDir = (await fileExists(srcDir)) ? srcDir : projectRoot;
 
-    if (isFix && fileDiagnostics.length > 0) {
-      // Sort in reverse order by position to prevent offset shifting
-      fileDiagnostics.sort((a, b) => b.position - a.position);
-      let newContent = content;
-      for (const diag of fileDiagnostics) {
-        const before = newContent.slice(0, diag.position);
-        const after = newContent.slice(diag.position + diag.length);
-        newContent = before + diag.canonical + after;
-      }
-      fs.writeFileSync(file, newContent, "utf8");
-      console.log(
-        `Fixed ${fileDiagnostics.length.toString()} non-canonical class(es) in ${path.relative(projectRoot, file)}`,
-      );
-    } else {
-      allDiagnostics.push(...fileDiagnostics);
+    for await (const entry of fs.glob(SUPPORTED_GLOB_EXTENSIONS, {
+      cwd: searchDir,
+      exclude: (e) =>
+        shouldExclude(path.relative(projectRoot, path.join(searchDir, e))),
+    })) {
+      targetFiles.push(path.resolve(searchDir, entry));
     }
   }
 
-  if (isFix) {
-    console.log("Tailwind class canonicalization complete.");
+  if (targetFiles.length === 0) {
+    console.log("No eligible Tailwind CSS files found to lint.");
     return;
   }
 
-  if (allDiagnostics.length > 0) {
-    console.error(
-      `Found ${allDiagnostics.length.toString()} non-canonical Tailwind CSS class(es):`,
-    );
-    for (const diag of allDiagnostics) {
-      const relativePath = path.relative(projectRoot, diag.filePath);
-      console.error(
-        `  ${relativePath}:${diag.line.toString()}:${diag.col.toString()} - [suggestCanonicalClasses] '${diag.original}' can be written as '${diag.canonical}'`,
+  const client = await createLSPClient(projectRoot);
+
+  try {
+    const initParams: InitializeParams = {
+      processId: process.pid,
+      rootUri: pathToFileURL(projectRoot).toString(),
+      workspaceFolders: [
+        {
+          uri: pathToFileURL(projectRoot).toString(),
+          name: path.basename(projectRoot),
+        },
+      ],
+      capabilities: {
+        workspace: {
+          configuration: true,
+          didChangeWatchedFiles: { dynamicRegistration: true },
+        },
+        textDocument: {
+          publishDiagnostics: {},
+          codeAction: {
+            codeActionLiteralSupport: {
+              codeActionKind: { valueSet: [CodeActionKind.QuickFix] },
+            },
+          },
+        },
+      },
+      initializationOptions: {
+        testMode: true,
+      },
+    };
+
+    await client.connection.sendRequest(InitializeRequest.type, initParams);
+    await client.connection.sendNotification(InitializedNotification.type, {});
+
+    // Wait for server project discovery to be fully ready
+    await client.waitForServerReady();
+
+    let totalDiagnostics = 0;
+    let totalFixes = 0;
+
+    for (const file of targetFiles) {
+      const uri = pathToFileURL(file).toString();
+      const ext = path.extname(file);
+      const languageId = EXTENSION_TO_LANGUAGE_ID[ext] ?? "plaintext";
+      const content = await fs.readFile(file, "utf8");
+
+      const diagsPromise = client.waitForDiagnostics(uri);
+
+      await client.connection.sendNotification(
+        DidOpenTextDocumentNotification.type,
+        {
+          textDocument: {
+            uri,
+            languageId,
+            version: 1,
+            text: content,
+          },
+        },
+      );
+
+      const diags = await diagsPromise;
+
+      if (diags.length > 0) {
+        if (isFix) {
+          const editsToApply: TextEdit[] = [];
+          const fixedDiagnosticRanges = new Set<string>();
+
+          for (const diag of diags) {
+            const rawActions = await client.connection.sendRequest(
+              CodeActionRequest.type,
+              {
+                textDocument: { uri },
+                range: diag.range,
+                context: { diagnostics: [diag] },
+              },
+            );
+
+            if (Array.isArray(rawActions)) {
+              for (const action of rawActions) {
+                if (
+                  "kind" in action &&
+                  action.kind === CodeActionKind.QuickFix &&
+                  action.title.startsWith("Replace with '") &&
+                  action.edit?.changes?.[uri]
+                ) {
+                  editsToApply.push(...action.edit.changes[uri]);
+                  if (Array.isArray(action.diagnostics)) {
+                    for (const d of action.diagnostics) {
+                      fixedDiagnosticRanges.add(
+                        `${d.range.start.line.toString()}:${d.range.start.character.toString()}`,
+                      );
+                    }
+                  } else {
+                    fixedDiagnosticRanges.add(
+                      `${diag.range.start.line.toString()}:${diag.range.start.character.toString()}`,
+                    );
+                  }
+                }
+              }
+            }
+          }
+
+          if (editsToApply.length > 0) {
+            const updated = applyTextEdits(content, editsToApply);
+            await fs.writeFile(file, updated, "utf8");
+            totalFixes += editsToApply.length;
+            console.log(
+              `Fixed ${editsToApply.length.toString()} issue(s) in ${path.relative(projectRoot, file)}`,
+            );
+          }
+
+          // Report remaining unfixable diagnostics (e.g. cssConflict)
+          for (const diag of diags) {
+            const key = `${diag.range.start.line.toString()}:${diag.range.start.character.toString()}`;
+            if (!fixedDiagnosticRanges.has(key)) {
+              totalDiagnostics++;
+              const rel = path.relative(projectRoot, file);
+              const line = diag.range.start.line + 1;
+              const col = diag.range.start.character + 1;
+              const code =
+                typeof diag.code === "string"
+                  ? diag.code
+                  : typeof diag.code === "number"
+                    ? diag.code.toString()
+                    : "lint";
+              const message =
+                typeof diag.message === "string"
+                  ? diag.message
+                  : diag.message.value;
+              console.warn(
+                `  ${rel}:${line.toString()}:${col.toString()} - [${code}] ${message}`,
+              );
+            }
+          }
+        } else {
+          for (const diag of diags) {
+            totalDiagnostics++;
+            const rel = path.relative(projectRoot, file);
+            const line = diag.range.start.line + 1;
+            const col = diag.range.start.character + 1;
+            const code =
+              typeof diag.code === "string"
+                ? diag.code
+                : typeof diag.code === "number"
+                  ? diag.code.toString()
+                  : "lint";
+            const message =
+              typeof diag.message === "string"
+                ? diag.message
+                : diag.message.value;
+            console.error(
+              `  ${rel}:${line.toString()}:${col.toString()} - [${code}] ${message}`,
+            );
+          }
+        }
+      }
+
+      await client.connection.sendNotification(
+        DidCloseTextDocumentNotification.type,
+        {
+          textDocument: { uri },
+        },
       );
     }
-    console.error(
-      "\nRun `npm run lint:tailwind --fix` to auto-fix these issues.",
-    );
+
+    await client.close();
+
+    if (isFix) {
+      if (totalFixes > 0) {
+        console.log(
+          `Successfully auto-fixed ${totalFixes.toString()} issue(s).`,
+        );
+      }
+      if (totalDiagnostics > 0) {
+        console.warn(
+          `\n${totalDiagnostics.toString()} issue(s) cannot be automatically resolved (e.g. conflicting CSS properties).`,
+        );
+        process.exit(1);
+      }
+      console.log("All Tailwind CSS classes are clean.");
+      return;
+    }
+
+    if (totalDiagnostics > 0) {
+      console.error(
+        `\nFound ${totalDiagnostics.toString()} Tailwind CSS diagnostic issue(s).`,
+      );
+      console.error(
+        "Run `npm run lint:tailwind --fix` to auto-fix applicable issues.",
+      );
+      process.exit(1);
+    }
+
+    console.log("All Tailwind CSS classes are canonical and conflict-free.");
+  } catch (err) {
+    console.error("Tailwind language server execution error:", err);
+    await client.close();
     process.exit(1);
   }
-
-  console.log("All Tailwind CSS classes are canonical.");
 }
 
 void main();

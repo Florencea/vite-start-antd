@@ -63,7 +63,7 @@ This single command runs:
 
 1. `typecheck` (`tsc -b` in strict mode)
 2. `lint` (ESLint strict + stylistic type checks)
-3. `lint:tailwind` (Official Tailwind CSS v4 canonical class check via `@tailwindcss/oxide`)
+3. `lint:tailwind` (Official Tailwind CSS v4 diagnostic & canonical class check via headless `@tailwindcss/language-server`)
 4. `format:check` (Prettier style validation)
 5. `check:deadcode` (Knip unused exports and dependency check)
 6. `test` (Vitest browser tests in Chromium)
