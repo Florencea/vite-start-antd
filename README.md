@@ -12,7 +12,7 @@ A lean React 19 boilerplate and upgrade canary testbed powered by Vite, Ant Desi
 - **Natural Specificity**: Tailwind utilities are scoped under `#root` in `src/global.css`, avoiding the need for `!important` modifiers or inline `style`.
 - **Canary Matrix (`/canary`)**: Isolated verification suite for SSOT tokens, Dayjs/DatePicker i18n (`zhTW`), Form validation, Feedback modals, and Table search params.
 - **Multi-Layer Testing**: Real Chromium component tests (`@vitest/browser-playwright`) and full end-to-end user journeys (`playwright`).
-- **Modern CI Pipeline**: Tiered GitHub Actions workflow with fail-fast typechecking/linting and parallel Node (22, 24, 26) & OS matrix testing.
+- **Modern CI Pipeline**: Two-tier GitHub Actions architecture featuring an authoritative fail-fast Linux gatekeeper, targeted macOS/Windows compatibility verification, and an upstream Node.js canary pipeline.
 
 ## Tech Stack
 

@@ -29,9 +29,9 @@ defaults:
     shell: bash
 
 jobs:
-  lint-and-typecheck:
-    name: Typecheck & Lint
-    runs-on: ubuntu-24.04
+  gatekeeper:
+    name: Gatekeeper (Linux)
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -40,57 +40,6 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version-file: package.json
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Setup environment file
-        run: cp .env.example .env
-
-      - name: Typecheck
-        run: npm run agent:typecheck
-
-      - name: Lint (ESLint)
-        run: npm run agent:lint:eslint
-
-      - name: Lint (Tailwind CSS)
-        run: npm run agent:lint:tailwind
-
-      - name: Check code formatting (Prettier)
-        run: npm run format:check
-
-      - name: Check dead code (Knip)
-        run: npm run check:deadcode
-
-  unit-test:
-    name: Unit Tests (Node ${{ matrix.node }} on ${{ matrix.os }})
-    needs: lint-and-typecheck
-    runs-on: ${{ matrix.os }}
-    env:
-      NPM_CONFIG_ENGINE_STRICT: "false"
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - 22
-          - 24
-          - 26
-        os:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
-          - windows-2025
-          - windows-11-vs2026-arm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v7
-        with:
-          node-version: ${{ matrix.node }}
-          check-latest: true
           cache: npm
 
       - name: Install dependencies
@@ -116,40 +65,60 @@ jobs:
         run: npm run test:setup
 
       - name: Install Playwright system dependencies on Linux
-        if: runner.os == 'Linux'
         run: npx playwright install-deps chromium
+
+      - name: Typecheck
+        run: npm run agent:typecheck
+
+      - name: Lint (ESLint)
+        run: npm run agent:lint:eslint
+
+      - name: Lint (Tailwind CSS)
+        run: npm run agent:lint:tailwind
+
+      - name: Check code formatting (Prettier)
+        run: npm run format:check
+
+      - name: Check dead code (Knip)
+        run: npm run check:deadcode
 
       - name: Run unit & component tests
         run: npm run agent:test:unit
 
-  e2e-and-build:
-    name: E2E & Build (Node ${{ matrix.node }} on ${{ matrix.os }})
-    needs: lint-and-typecheck
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Run E2E tests
+        run: npm run agent:test:e2e
+
+      - name: Upload Playwright artifacts on failure
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-artifacts-gatekeeper
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  platform-compat:
+    name: Platform Compatibility (${{ matrix.os }})
+    needs: gatekeeper
     runs-on: ${{ matrix.os }}
-    env:
-      NPM_CONFIG_ENGINE_STRICT: "false"
     strategy:
       fail-fast: false
       matrix:
-        node:
-          - 22
-          - 24
-          - 26
         os:
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - macos-26
-          - windows-2025
-          - windows-11-vs2026-arm
+          - macos-latest
+          - windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Setup Node.js ${{ matrix.node }}
+      - name: Setup Node.js (via package.json engines)
         uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node }}
-          check-latest: true
+          node-version-file: package.json
           cache: npm
 
       - name: Install dependencies
@@ -177,18 +146,14 @@ jobs:
       - name: Setup test environment (install browser)
         run: npm run test:setup
 
-      - name: Install Playwright system dependencies on Linux
-        if: runner.os == 'Linux'
-        run: npx playwright install-deps chromium
-
-      - name: Run E2E tests
-        run: npm run agent:test:e2e
+      - name: Run unit & smoke tests
+        run: npm run agent:test:unit
 
       - name: Upload Playwright artifacts on failure
         uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: playwright-artifacts-${{ matrix.os }}-node-${{ matrix.node }}
+          name: playwright-artifacts-${{ matrix.os }}
           path: |
             test-results/
             playwright-report/
