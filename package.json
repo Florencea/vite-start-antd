@@ -60,7 +60,7 @@
     "globals": "17.12.0",
     "knip": "6.35.1",
     "playwright": "1.63.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.7",
     "prettier-plugin-packagejson": "3.0.2",
     "prettier-plugin-tailwindcss": "0.8.1",
     "tailwindcss": "4.3.3",
