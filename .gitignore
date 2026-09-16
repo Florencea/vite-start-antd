@@ -26,6 +26,7 @@ dist-ssr
 .tanstack
 
 # testing
+.cache/
 .vitest
 test-results/
 playwright-report/

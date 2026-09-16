@@ -1,4 +1,5 @@
 dist
+.cache
 .tanstack
 .vitest
 test-results

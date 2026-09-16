@@ -9,6 +9,7 @@ export default defineConfig([
   globalIgnores([
     "dist",
     "src/routeTree.gen.ts",
+    ".cache",
     ".tanstack",
     ".vitest",
     "test-results",
