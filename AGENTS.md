@@ -37,6 +37,7 @@ Guidelines for AI agents and human contributors working on this repository.
 - **No Dead Code**: Do not export unused types/functions or leave unused packages in `package.json`. Knip checks this in CI.
 - **Boundary Defenses**: Strict compiler checks enabled (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`). Optional properties must not receive `undefined` unless explicitly declared.
 - **React Hooks**: `react-hooks/exhaustive-deps` strictly enforced as errors.
+- **CI Workflow Standards**: Whenever `.github/workflows/` files are added or modified, running `actionlint` locally with **0 errors and 0 warnings** is a strict requirement before staging (`git add`). Execute via `actionlint` directly or `npm run lint:ci` (`npm run agent:lint:ci`). Note that `actionlint` is strictly an offline/local shift-left verification guardrail and must **never** be embedded into remote GitHub Actions workflow files.
 - **Comments**: Keep all code comments in concise English.
 
 ## 4. Testing Standards
@@ -76,9 +77,11 @@ Agents must follow this strict verification ladder:
 1. **Inner Loop**: `npm run agent:verify:inner`
    - `agent:typecheck` (`tsc -b --pretty false`)
    - `agent:lint` (`agent:lint:eslint` + `agent:lint:tailwind`)
-2. **Unit / Browser Loop**: `npm run agent:test:unit`
+2. **CI Workflow Verification** (mandatory when modifying `.github/workflows/*.yml`):
+   - `npm run agent:lint:ci` (or `actionlint` directly) with 0 errors and 0 warnings prior to staging.
+3. **Unit / Browser Loop**: `npm run agent:test:unit`
    - Vitest in non-interactive, zero-color mode (`vitest run --reporter=tap-flat --no-color`)
-3. **Comprehensive Gate**: `npm run agent:verify:gate`
+4. **Comprehensive Gate**: `npm run agent:verify:gate`
    - Cascades `agent:verify:unit` -> `npm run build` -> `agent:test:e2e` (`playwright test --reporter=line`)
 
 All checks must pass with 0 errors and 0 warnings.

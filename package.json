@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "agent:lint": "npm run agent:lint:eslint && npm run agent:lint:tailwind",
+    "agent:lint:ci": "actionlint",
     "agent:lint:eslint": "eslint --no-inline-config --no-color --max-warnings 0",
     "agent:lint:eslint:fix": "eslint --no-inline-config --no-color --fix --max-warnings 0",
     "agent:lint:fix": "npm run agent:lint:eslint:fix && npm run agent:lint:tailwind:fix",
@@ -23,6 +24,7 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint",
+    "lint:ci": "actionlint",
     "lint:fix": "eslint --fix",
     "lint:tailwind": "node scripts/lint-tailwind.ts",
     "lint:tailwind:fix": "node scripts/lint-tailwind.ts --fix",
@@ -73,6 +75,9 @@
     "node": "24.21.0"
   },
   "knip": {
+    "ignoreBinaries": [
+      "actionlint"
+    ],
     "ignoreDependencies": [
       "@tailwindcss/language-server"
     ],

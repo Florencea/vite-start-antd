@@ -57,6 +57,7 @@ Configured in `.env` (refer to `.env.example`):
 | `npm run test:e2e`          | Run Playwright E2E tests against production preview (automatically builds if needed)                  |
 | `npm run typecheck`         | Run TypeScript compiler type checking (`tsc -b`)                                                      |
 | `npm run lint`              | Check codebase semantic errors with ESLint                                                            |
+| `npm run lint:ci`           | Check GitHub Actions workflow files locally with actionlint                                           |
 | `npm run lint:fix`          | Automatically fix ESLint errors                                                                       |
 | `npm run lint:tailwind`     | Check Tailwind CSS v4 canonical classes                                                               |
 | `npm run lint:tailwind:fix` | Automatically format non-canonical Tailwind CSS classes                                               |
