@@ -41,9 +41,6 @@ jobs:
       - name: Install dependencies (bypassing strict engine)
         run: npm ci --engine-strict=false
 
-      - name: Setup environment file
-        run: cp .env.example .env
-
       - name: Build production bundle
         continue-on-error: true
         run: npm run build

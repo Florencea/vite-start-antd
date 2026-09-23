@@ -10,7 +10,7 @@ if (!container)
 
 const router = createRouter({
   routeTree,
-  basepath: import.meta.env.VITE_WEB_BASE,
+  basepath: import.meta.env.BASE_URL,
 });
 
 declare module "@tanstack/react-router" {
