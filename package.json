@@ -35,7 +35,7 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@tanstack/react-router": "1.170.38",
+    "@tanstack/react-router": "1.170.39",
     "antd": "6.6.5",
     "dayjs": "1.11.23",
     "react": "19.3.0",
@@ -66,7 +66,7 @@
     "tailwindcss": "4.3.3",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "typescript-eslint": "8.70.1",
-    "vite": "8.3.0",
+    "vite": "8.3.1",
     "vitest": "5.0.1",
     "vitest-browser-react": "2.3.0",
     "vscode-languageserver-protocol": "3.18.3"
