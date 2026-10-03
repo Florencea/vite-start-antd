@@ -1,24 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import {
-  Button,
-  Flex,
-  Space,
-  Tag,
-  Typography,
-  version as antdVersion,
-} from "antd";
+import { Button, Flex, Space, Tag, Typography, version as antdVersion } from "antd";
 import { version as reactVersion } from "react";
 import logo from "../assets/vite.svg";
 
 export const Welcome = () => {
   return (
-    <Flex
-      vertical
-      justify="center"
-      align="center"
-      gap="large"
-      className="min-h-[60vh]"
-    >
+    <Flex vertical justify="center" align="center" gap="large" className="min-h-[60vh]">
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
         <img src={logo} className="h-40 w-40" alt="Vite logo" />
       </a>

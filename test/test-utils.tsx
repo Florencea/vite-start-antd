@@ -1,8 +1,4 @@
-import {
-  createMemoryHistory,
-  createRouter,
-  RouterProvider,
-} from "@tanstack/react-router";
+import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { render as browserRender } from "vitest-browser-react";
 import { Providers } from "../src/providers";
 import { routeTree } from "../src/routeTree.gen";

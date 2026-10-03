@@ -57,8 +57,7 @@ export const Route = createFileRoute("/canary")({
     const pageSizeNum = Number(search.pageSize);
     return {
       page: Number.isFinite(pageNum) && pageNum > 0 ? pageNum : 1,
-      pageSize:
-        Number.isFinite(pageSizeNum) && pageSizeNum > 0 ? pageSizeNum : 10,
+      pageSize: Number.isFinite(pageSizeNum) && pageSizeNum > 0 ? pageSizeNum : 10,
     };
   },
   component: CanaryPage,
@@ -76,9 +75,7 @@ function CanaryPage() {
 
   const [currentColor] = useState(() => {
     if (typeof window === "undefined") return "";
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue("--color-primary")
-      .trim();
+    return getComputedStyle(document.documentElement).getPropertyValue("--color-primary").trim();
   });
 
   const handleFormFinish = (values: FormValues) => {
@@ -114,8 +111,8 @@ function CanaryPage() {
         Canary Regression Matrix
       </Typography.Title>
       <Typography.Paragraph type="secondary" className="m-0">
-        Integration testbed verifying SSOT tokens, i18n, form validation, router
-        search params, and feedback overlays.
+        Integration testbed verifying SSOT tokens, i18n, form validation, router search params, and
+        feedback overlays.
       </Typography.Paragraph>
 
       <Row gutter={[16, 16]}>
@@ -124,23 +121,16 @@ function CanaryPage() {
           <Card title="1. Design Token Bridge (SSOT)">
             <Flex vertical gap="middle">
               <Typography.Text type="secondary">
-                TailwindCSS v4 @theme serves as the SSOT, dynamically extracted
-                into Ant Design tokens.
+                TailwindCSS v4 @theme serves as the SSOT, dynamically extracted into Ant Design
+                tokens.
               </Typography.Text>
               <Flex align="center" gap="middle">
                 <Flex align="center" gap="small">
-                  <div
-                    data-testid="tw-primary-sample"
-                    className="bg-primary h-7 w-7 rounded"
-                  />
+                  <div data-testid="tw-primary-sample" className="bg-primary h-7 w-7 rounded" />
                   <Typography.Text code>bg-primary</Typography.Text>
                 </Flex>
                 <Typography.Text type="secondary">===</Typography.Text>
-                <Button
-                  type="primary"
-                  size="small"
-                  data-testid="antd-primary-sample"
-                >
+                <Button type="primary" size="small" data-testid="antd-primary-sample">
                   Antd Primary Button
                 </Button>
               </Flex>
@@ -159,8 +149,8 @@ function CanaryPage() {
           <Card title="2. Dayjs & DatePicker i18n">
             <Flex vertical gap="middle">
               <Typography.Text type="secondary">
-                Verifies antd/es/locale/zh_TW and dayjs/locale/zh-tw integration
-                with isDayjs validation.
+                Verifies antd/es/locale/zh_TW and dayjs/locale/zh-tw integration with isDayjs
+                validation.
               </Typography.Text>
               <DatePicker
                 data-testid="canary-datepicker"
@@ -185,17 +175,10 @@ function CanaryPage() {
                 name="username"
                 rules={[{ required: true, message: "Please enter username" }]}
               >
-                <Input
-                  placeholder="Enter username"
-                  data-testid="username-input"
-                />
+                <Input placeholder="Enter username" data-testid="username-input" />
               </Form.Item>
               <Space>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  data-testid="submit-btn"
-                >
+                <Button type="primary" htmlType="submit" data-testid="submit-btn">
                   Submit
                 </Button>
                 <Button
@@ -215,21 +198,13 @@ function CanaryPage() {
           <Card title="4. Feedback & Portals">
             <Flex vertical gap="middle">
               <Typography.Text type="secondary">
-                Verifies App.useApp modal and notification portals render within
-                container.
+                Verifies App.useApp modal and notification portals render within container.
               </Typography.Text>
               <Space wrap>
-                <Button
-                  type="primary"
-                  onClick={handleOpenModal}
-                  data-testid="modal-trigger-btn"
-                >
+                <Button type="primary" onClick={handleOpenModal} data-testid="modal-trigger-btn">
                   Open Confirm Modal
                 </Button>
-                <Button
-                  onClick={handleTriggerNotification}
-                  data-testid="notification-trigger-btn"
-                >
+                <Button onClick={handleTriggerNotification} data-testid="notification-trigger-btn">
                   Trigger Notification
                 </Button>
               </Space>

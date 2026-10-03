@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "vite-plus/test";
 import { renderAppAt } from "./test-utils";
 
 test("renders vite logo and starter title", async () => {

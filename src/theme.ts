@@ -6,10 +6,7 @@ import { useSyncExternalStore } from "react";
  */
 function getCssVariable(name: string): string | undefined {
   if (typeof window === "undefined") return undefined;
-  return (
-    getComputedStyle(document.documentElement).getPropertyValue(name).trim() ||
-    undefined
-  );
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || undefined;
 }
 
 /**
@@ -23,14 +20,10 @@ function createAntdTheme(primaryColor?: string): ThemeConfig {
       fontFamily:
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
       borderRadius: 8,
-      ...(resolvedPrimary
-        ? { colorPrimary: resolvedPrimary, colorInfo: resolvedPrimary }
-        : {}),
+      ...(resolvedPrimary ? { colorPrimary: resolvedPrimary, colorInfo: resolvedPrimary } : {}),
     },
     components: {
-      Layout: {
-        ...(resolvedPrimary ? { headerBg: resolvedPrimary } : {}),
-      },
+      Layout: resolvedPrimary ? { headerBg: resolvedPrimary } : {},
     },
   };
 }

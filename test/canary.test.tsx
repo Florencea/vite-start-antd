@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "vite-plus/test";
 import { renderAppAt } from "./test-utils";
 
 test("SSOT Token Bridge: Tailwind bg-primary matches Antd Button primary background", async () => {
@@ -25,9 +25,7 @@ test("SSOT Token Bridge: dynamic theme updates reactively when CSS variable chan
 
   const antdSample = screen.getByTestId("antd-primary-sample");
   await expect.element(antdSample).toBeVisible();
-  expect(window.getComputedStyle(antdSample.element()).backgroundColor).toBe(
-    "rgb(114, 46, 209)",
-  );
+  expect(window.getComputedStyle(antdSample.element()).backgroundColor).toBe("rgb(114, 46, 209)");
 
   // Dynamically update --color-primary on root element
   document.documentElement.style.setProperty("--color-primary", "#1677ff");
