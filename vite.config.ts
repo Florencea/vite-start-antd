@@ -9,6 +9,16 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
   },
   lint: {
+    ignorePatterns: [
+      "dist/**",
+      ".cache/**",
+      ".tanstack/**",
+      ".vitest/**",
+      "test-results/**",
+      "playwright-report/**",
+      "blob-report/**",
+      "src/routeTree.gen.ts",
+    ],
     options: {
       typeAware: true,
       typeCheck: true,
@@ -24,6 +34,16 @@ export default defineConfig({
     },
   },
   fmt: {
+    ignorePatterns: [
+      "dist/**",
+      ".cache/**",
+      ".tanstack/**",
+      ".vitest/**",
+      "test-results/**",
+      "playwright-report/**",
+      "blob-report/**",
+      "src/routeTree.gen.ts",
+    ],
     sortPackageJson: true,
   },
   staged: {
