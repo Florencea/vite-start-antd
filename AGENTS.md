@@ -2,9 +2,9 @@
 
 ## Vite+ Guidelines
 
-This project uses Vite+ to manage development tools. Always use `vp` to run commands:
+This project uses Vite+ to manage development tools. Always use `vp` (or `vpr` shorthand for `vp run`) to run commands:
 
-- `vp run <script>`: Run scripts from `package.json`
+- `vpr <script>` (or `vp run <script>`): Run scripts from `package.json`
 - `vp install`: Install dependencies
 - `vp update`: Update dependencies
 - `vp test`: Run Vitest tests
@@ -20,8 +20,8 @@ Guidelines for AI agents and human contributors working on this repository.
 
 ## 1. Tech Stack
 
-- **Unified Toolchain**: Vite+ 1.0 (`vp`)
-- **Package Manager**: pnpm (managed natively and transparently via `vp` / `devEngines.packageManager: pnpm@12.8.1`)
+- **Unified Toolchain**: Vite+ 1.0 (`vp` / `vpr`)
+- **Package Manager**: pnpm (managed natively and transparently via `vp` / `pnpm-lock.yaml`)
 - **Framework**: React 19 + Vite
 - **Language**: TypeScript 7 (strict mode, native compiler)
 - **UI & Styling**: Ant Design v6 + TailwindCSS v4

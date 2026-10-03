@@ -590,7 +590,7 @@ async function main() {
 
     if (totalDiagnostics > 0) {
       console.error(`\nFound ${totalDiagnostics.toString()} Tailwind CSS diagnostic issue(s).`);
-      console.error("Run `npm run lint:tailwind --fix` to auto-fix applicable issues.");
+      console.error("Run `vpr lint:tailwind:fix` to auto-fix applicable issues.");
       process.exit(1);
     }
 

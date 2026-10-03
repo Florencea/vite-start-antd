@@ -50,33 +50,35 @@ vp check
 
 ### Human Developer Scripts
 
-| Command                    | Description                                                                             |
-| :------------------------- | :-------------------------------------------------------------------------------------- |
-| `vp dev`                   | Start Vite development server                                                           |
-| `vp check`                 | Fast unified Rust-powered lint, format, and type check (Oxlint + Oxfmt + tsgolint)      |
-| `vp run check`             | Run full human verification gate (`vp check`, `lint:tailwind`, `knip`, `test`, `build`) |
-| `vp test`                  | Run Vitest component tests in Chromium (`silent: "passed-only"`, watch mode locally)    |
-| `vp run test:e2e`          | Run Playwright E2E tests against production preview (automatically builds if needed)    |
-| `vp run typecheck`         | Run TypeScript compiler type checking (`tsc -b`)                                        |
-| `vp lint`                  | Check codebase semantic errors with Oxlint                                              |
-| `vp run lint:ci`           | Check GitHub Actions workflow files locally with actionlint                             |
-| `vp lint --fix`            | Automatically fix Oxlint errors                                                         |
-| `vp run lint:tailwind`     | Check Tailwind CSS v4 canonical classes                                                 |
-| `vp run lint:tailwind:fix` | Automatically format non-canonical Tailwind CSS classes                                 |
-| `vp fmt --check`           | Validate code formatting with Oxfmt                                                     |
-| `vp fmt`                   | Automatically format all files with Oxfmt                                               |
-| `vp run check:deadcode`    | Check unused files, exports, and dependencies with Knip                                 |
-| `vp build`                 | Build production bundle with Vite+                                                      |
-| `vp preview`               | Preview production build                                                                |
-| `vp run test:setup`        | Install Playwright Chromium browser binaries                                            |
+> Tip: `vpr <script>` is the concise Vite+ shorthand for `vp run <script>`.
+
+| Command                 | Description                                                                             |
+| :---------------------- | :-------------------------------------------------------------------------------------- |
+| `vp dev`                | Start Vite development server                                                           |
+| `vp check`              | Fast unified Rust-powered lint, format, and type check (Oxlint + Oxfmt + tsgolint)      |
+| `vpr check`             | Run full human verification gate (`vp check`, `lint:tailwind`, `knip`, `test`, `build`) |
+| `vp test`               | Run Vitest component tests in Chromium (`silent: "passed-only"`, watch mode locally)    |
+| `vpr test:e2e`          | Run Playwright E2E tests against production preview (automatically builds if needed)    |
+| `vpr typecheck`         | Run TypeScript compiler type checking (`tsc -b`)                                        |
+| `vp lint`               | Check codebase semantic errors with Oxlint                                              |
+| `vpr lint:ci`           | Check GitHub Actions workflow files locally with actionlint                             |
+| `vp lint --fix`         | Automatically fix Oxlint errors                                                         |
+| `vpr lint:tailwind`     | Check Tailwind CSS v4 canonical classes                                                 |
+| `vpr lint:tailwind:fix` | Automatically format non-canonical Tailwind CSS classes                                 |
+| `vp fmt --check`        | Validate code formatting with Oxfmt                                                     |
+| `vp fmt`                | Automatically format all files with Oxfmt                                               |
+| `vpr check:deadcode`    | Check unused files, exports, and dependencies with Knip                                 |
+| `vp build`              | Build production bundle with Vite+                                                      |
+| `vp preview`            | Preview production build                                                                |
+| `vpr test:setup`        | Install Playwright Chromium browser binaries                                            |
 
 ### Agent Fail-Fast Ladder
 
-| Command                     | Level / Stage                                                                |
-| :-------------------------- | :--------------------------------------------------------------------------- |
-| `vp run agent:verify:inner` | **Inner Loop**: Typecheck (`tsc -b --pretty false`) + Oxlint & Tailwind lint |
-| `vp run agent:verify:unit`  | **Unit Loop**: Inner loop + Vitest in flat zero-color mode (`tap-flat`)      |
-| `vp run agent:verify:gate`  | **Gate**: Unit loop + Production bundle build + Playwright E2E tests         |
+| Command                  | Level / Stage                                                                |
+| :----------------------- | :--------------------------------------------------------------------------- |
+| `vpr agent:verify:inner` | **Inner Loop**: Typecheck (`tsc -b --pretty false`) + Oxlint & Tailwind lint |
+| `vpr agent:verify:unit`  | **Unit Loop**: Inner loop + Vitest in flat zero-color mode (`tap-flat`)      |
+| `vpr agent:verify:gate`  | **Gate**: Unit loop + Production bundle build + Playwright E2E tests         |
 
 ## Guidelines
 

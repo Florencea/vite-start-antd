@@ -68,7 +68,7 @@ jobs:
         run: vp run agent:typecheck
 
       - name: Check (Oxlint & Oxfmt)
-        run: vp run agent:check
+        run: vp check
 
       - name: Lint (Tailwind CSS)
         run: vp run agent:lint:tailwind
