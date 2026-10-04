@@ -59,15 +59,36 @@ export default defineConfig({
     tailwindcss(),
   ],
   test: {
-    include: ["test/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
-    exclude: ["test/e2e/**"],
-    setupFiles: ["./test/vitest.setup.ts"],
+    allowOnly: !process.env.CI,
     silent: "passed-only",
-    browser: {
-      provider: playwright(),
-      enabled: true,
-      headless: true,
-      instances: [{ browser: "chromium" }],
-    },
+    projects: [
+      {
+        test: {
+          name: "unit",
+          include: ["test/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
+          exclude: ["test/e2e/**"],
+          setupFiles: ["./test/vitest.setup.ts"],
+          browser: {
+            provider: playwright(),
+            enabled: true,
+            headless: true,
+            instances: [{ browser: "chromium" }],
+          },
+        },
+      },
+      {
+        test: {
+          name: "e2e",
+          include: ["test/e2e/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
+          setupFiles: ["./test/vitest.setup.ts"],
+          browser: {
+            provider: playwright(),
+            enabled: true,
+            headless: true,
+            instances: [{ browser: "chromium" }],
+          },
+        },
+      },
+    ],
   },
 });

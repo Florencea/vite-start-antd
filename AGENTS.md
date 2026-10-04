@@ -20,14 +20,14 @@ Guidelines for AI agents and human contributors working on this repository.
 
 ## 1. Architecture Map
 
-| Layer       | Path              | Responsibility                                     |
-| :---------- | :---------------- | :------------------------------------------------- |
-| **Routes**  | `src/routes/`     | TanStack Router file routes (`/`, `/canary`, `/$`) |
-| **UI**      | `src/components/` | Reusable React 19 UI components                    |
-| **Theme**   | `src/theme.ts`    | Tailwind v4 SSOT bridge to Ant Design v6           |
-| **Tests**   | `test/`           | Vitest browser (Chromium) & Playwright E2E         |
-| **Tooling** | `scripts/`        | Tailwind validator & CI workflows                  |
-| **Rules**   | `.agents/rules/`  | Domain-specific modular rules                      |
+| Layer       | Path              | Responsibility                                      |
+| :---------- | :---------------- | :-------------------------------------------------- |
+| **Routes**  | `src/routes/`     | TanStack Router file routes (`/`, `/canary`, `/$`)  |
+| **UI**      | `src/components/` | Reusable React 19 UI components                     |
+| **Theme**   | `src/theme.ts`    | Tailwind v4 SSOT bridge to Ant Design v6            |
+| **Tests**   | `test/`           | Vitest browser (Chromium) dual-project (unit & e2e) |
+| **Tooling** | `scripts/`        | Tailwind validator & CI workflows                   |
+| **Rules**   | `.agents/rules/`  | Domain-specific modular rules                       |
 
 ---
 
