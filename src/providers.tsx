@@ -4,12 +4,12 @@ import "dayjs/locale/zh-tw";
 import "./global.css";
 import { useAntdTheme } from "./theme";
 
-interface Props {
+export interface ProvidersProps {
   children?: React.ReactNode;
   container: HTMLElement;
 }
 
-export const Providers = ({ container, children }: Props) => {
+export function Providers({ container, children }: ProvidersProps) {
   const dynamicTheme = useAntdTheme();
 
   return (
@@ -17,4 +17,4 @@ export const Providers = ({ container, children }: Props) => {
       <App>{children}</App>
     </ConfigProvider>
   );
-};
+}

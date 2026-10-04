@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
+import { parseArgs } from "node:util";
 import type {
   Diagnostic,
   InitializeParams,
@@ -507,8 +508,18 @@ async function lintSingleFile(
 // --- Main Runner ---
 
 async function main() {
-  const isFix = process.argv.includes("--fix");
-  const nonFlagArgs = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
+  const { values, positionals } = parseArgs({
+    options: {
+      fix: {
+        type: "boolean",
+        default: false,
+      },
+    },
+    allowPositionals: true,
+  });
+
+  const isFix = values.fix ?? false;
+  const nonFlagArgs = positionals;
 
   const projectRoot = process.cwd();
   const exclusionPatterns = await loadNormalizedExclusions(projectRoot);
@@ -582,7 +593,8 @@ async function main() {
         console.warn(
           `\n${totalDiagnostics.toString()} issue(s) cannot be automatically resolved (e.g. conflicting CSS properties).`,
         );
-        process.exit(1);
+        process.exitCode = 1;
+        return;
       }
       console.log("All Tailwind CSS classes are clean.");
       return;
@@ -591,14 +603,15 @@ async function main() {
     if (totalDiagnostics > 0) {
       console.error(`\nFound ${totalDiagnostics.toString()} Tailwind CSS diagnostic issue(s).`);
       console.error("Run `vpr lint:tailwind:fix` to auto-fix applicable issues.");
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     console.log("All Tailwind CSS classes are canonical and conflict-free.");
   } catch (err) {
     console.error("Tailwind language server execution error:", err);
     await client.close();
-    process.exit(1);
+    process.exitCode = 1;
   }
 }
 

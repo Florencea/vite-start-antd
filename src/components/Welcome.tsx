@@ -3,7 +3,7 @@ import { Button, Flex, Space, Tag, Typography, version as antdVersion } from "an
 import { version as reactVersion } from "react";
 import logo from "../assets/vite.svg";
 
-export const Welcome = () => {
+export function Welcome() {
   return (
     <Flex vertical justify="center" align="center" gap="large" className="min-h-[60vh]">
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
@@ -29,4 +29,4 @@ export const Welcome = () => {
       </Link>
     </Flex>
   );
-};
+}

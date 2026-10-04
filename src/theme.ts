@@ -6,7 +6,8 @@ import { useSyncExternalStore } from "react";
  */
 function getCssVariable(name: string): string | undefined {
   if (typeof window === "undefined") return undefined;
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || undefined;
+  const val = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return val.length > 0 ? val : undefined;
 }
 
 /**
@@ -59,5 +60,5 @@ export function useAntdTheme(): ThemeConfig {
     getThemeSnapshot,
     getThemeServerSnapshot,
   );
-  return createAntdTheme(primaryColor || undefined);
+  return createAntdTheme(primaryColor.length > 0 ? primaryColor : undefined);
 }
