@@ -39,7 +39,7 @@ function RouteComponent() {
 Run the Vite build or typecheck to trigger `@tanstack/router-plugin` code generation:
 
 ```bash
-vpr agent:typecheck
+vpr agent:verify:inner
 ```
 
 ## 3. Create Corresponding Browser Test

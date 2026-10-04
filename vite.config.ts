@@ -5,6 +5,11 @@ import { defineConfig } from "vite-plus";
 import { playwright } from "vite-plus/test/browser-playwright";
 
 export default defineConfig({
+  run: {
+    cache: {
+      scripts: true,
+    },
+  },
   build: {
     chunkSizeWarningLimit: 1000,
   },
@@ -45,9 +50,6 @@ export default defineConfig({
       "src/routeTree.gen.ts",
     ],
     sortPackageJson: true,
-  },
-  staged: {
-    "*.{ts,tsx}": "vp check --fix",
   },
   plugins: [
     tanstackRouter({

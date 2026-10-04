@@ -44,11 +44,11 @@ Guidelines for AI agents and human contributors working on this repository.
 Prioritize `vpr agent:*` commands matching Antigravity's whitelist:
 
 - **Gate**: `vpr agent:verify:gate` (unit -> build -> e2e)
-- **Inner Loop**: `vpr agent:verify:inner` (typecheck + lint)
+- **Inner Loop**: `vpr agent:verify:inner` (vp check + Tailwind validator)
 - **Unit Tests**: `vpr agent:test:unit`
 - **Lint & Fix**: `vpr agent:lint:fix`, `vpr agent:lint:tailwind:fix`
-- **Type Check**: `vpr agent:typecheck`
 - **CI Lint**: `vpr agent:lint:ci` (`actionlint` 0 errors/warnings)
+- **Task Caching**: Scripts executed via `vpr` leverage Vite Task caching (`run.cache: { scripts: true }`). Unmodified steps replay in milliseconds. Use `vpr --last-details` to inspect cache hit status or `vp cache clean` / `vpr --no-cache` to force clean execution.
 
 ---
 
