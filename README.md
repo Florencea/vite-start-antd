@@ -1,6 +1,6 @@
-# vite-start-antd
+# vp-antd
 
-[![CI](https://github.com/Florencea/vite-start-antd/actions/workflows/ci.yml/badge.svg)](https://github.com/Florencea/vite-start-antd/actions/workflows/ci.yml)
+[![CI](https://github.com/Florencea/vp-antd/actions/workflows/ci.yml/badge.svg)](https://github.com/Florencea/vp-antd/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A lean React 19 boilerplate and upgrade canary testbed powered by Vite+ 1.0, Ant Design v6, TailwindCSS v4, TanStack Router, Vitest Browser mode, and Playwright E2E.

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vite-plus/test";
 import { renderAppAt } from "../test-utils.tsx";
 
-describe("Vite Start Antd E2E User Journey", () => {
+describe("vp-antd E2E User Journey", () => {
   test("home page renders starter title and navigates to canary", async () => {
     const screen = await renderAppAt("/");
     const title = screen.getByText("Vite + React + TailwindCSS + antd");

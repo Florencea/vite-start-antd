@@ -11,7 +11,7 @@ function RootLayout() {
       <Layout.Header>
         <Flex justify="space-between" align="center" className="h-full">
           <Typography.Title level={4} className="m-0 text-white">
-            Vite Start Antd
+            vp-antd
           </Typography.Title>
           <Space size="large">
             <Link

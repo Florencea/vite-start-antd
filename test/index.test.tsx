@@ -1,6 +1,13 @@
 import { expect, test } from "vite-plus/test";
 import { renderAppAt } from "./test-utils";
 
+test("renders vp-antd brand title in header", async () => {
+  const screen = await renderAppAt("/");
+  const brand = screen.getByText("vp-antd");
+  await expect.element(brand).toBeInTheDocument();
+  await expect.element(brand).toBeVisible();
+});
+
 test("renders vite logo and starter title", async () => {
   const screen = await renderAppAt("/");
   const logo = screen.getByAltText("Vite logo");
