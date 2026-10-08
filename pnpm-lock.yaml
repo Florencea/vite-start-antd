@@ -249,9 +249,6 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 5.0.1(@types/node@26.6.4)(@vitest/browser-playwright@5.0.1)(@vitest/browser-preview@5.0.1)(@vitest/ui@5.0.1)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.4)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
-      vitest-browser-react:
-        specifier: 2.3.0
-        version: 2.3.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vitest@5.0.1)
       vscode-languageserver-protocol:
         specifier: 3.18.4
         version: 3.18.4
@@ -2600,20 +2597,6 @@ packages:
       '@vitest/browser-webdriverio':
         optional: true
 
-  vitest-browser-react@2.3.0:
-    resolution: {integrity: sha512-S5vdGHHA93j2Z6dbmIJI1wtxT3AXPTRlmC1Meo+ekG011yNnEutMAnHrwyj8qFlGhgBYA8ENGK6+o1Q+vnFz6A==}
-    peerDependencies:
-      '@types/react': ^18.0.0 || ^19.0.0
-      '@types/react-dom': ^18.0.0 || ^19.0.0
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-      vitest: 5.0.1
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
   vitest@5.0.1:
     resolution: {integrity: sha512-iA95lQbKEkvrtTkdAgnWbXfbipWiiWe/hDl2P5tMi6WFwD76G0NxXAGp/M9EOcYupeGJRr6wppMc7CoA41TQjg==}
     engines: {node: ^22.12.0 || ^24.0.0 || >=26.0.0}
@@ -4687,15 +4670,6 @@ snapshots:
       - unrun
       - utf-8-validate
       - yaml
-
-  vitest-browser-react@2.3.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vitest@5.0.1):
-    dependencies:
-      react: 19.3.0
-      react-dom: 19.3.0(react@19.3.0)
-      vitest: 5.0.1(@types/node@26.6.4)(@vitest/browser-playwright@5.0.1)(@vitest/browser-preview@5.0.1)(@vitest/ui@5.0.1)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.4)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1))
-    optionalDependencies:
-      '@types/react': 19.3.0
-      '@types/react-dom': 19.3.0(@types/react@19.3.0)
 
   vitest@5.0.1(@types/node@26.6.4)(@vitest/browser-playwright@5.0.1)(@vitest/browser-preview@5.0.1)(@vitest/ui@5.0.1)(@voidzero-dev/vite-plus-core@1.0.0(@types/node@26.6.4)(jiti@2.7.0)(typescript@7.0.2)(yaml@2.9.1)):
     dependencies:
