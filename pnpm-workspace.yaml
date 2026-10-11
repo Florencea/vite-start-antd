@@ -28,6 +28,11 @@ minimumReleaseAgeExclude:
   - oxc-transform-react@0.153.0
   - playwright-core@1.64.0
   - playwright@1.64.0
+  - "@tanstack/history@1.162.5"
+  - "@tanstack/react-router@1.170.42"
+  - "@tanstack/router-core@1.171.35"
+  - "@tanstack/router-generator@1.167.41"
+  - "@tanstack/router-plugin@1.168.43"
 overrides:
   vite@*: "catalog:"
   vitest@*: "catalog:"

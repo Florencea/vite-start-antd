@@ -17,7 +17,7 @@
     "test:setup": "playwright install chromium"
   },
   "dependencies": {
-    "@tanstack/react-router": "1.170.41",
+    "@tanstack/react-router": "1.170.42",
     "antd": "6.6.5",
     "dayjs": "1.11.23",
     "react": "19.3.0",
@@ -26,13 +26,13 @@
   "devDependencies": {
     "@tailwindcss/language-server": "0.16.0",
     "@tailwindcss/vite": "4.3.3",
-    "@tanstack/router-plugin": "1.168.42",
-    "@types/node": "26.6.4",
+    "@tanstack/router-plugin": "1.168.43",
+    "@types/node": "26.6.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.2",
     "@vitest/browser-playwright": "catalog:",
-    "knip": "6.40.0",
+    "knip": "6.41.0",
     "oxc-transform-react": "0.153.0",
     "playwright": "1.64.0",
     "tailwindcss": "4.3.3",
